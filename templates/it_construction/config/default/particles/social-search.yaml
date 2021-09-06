@@ -1,0 +1,17 @@
+enabled: '1'
+display:
+  social: '1'
+  search: '1'
+  offcanvas: '0'
+social:
+  target: _blank
+  items: {  }
+search:
+  icon: 'fa fa-search'
+  text: ''
+offcanvas:
+  icon: 'fa fa-bars'
+  text: ''
+css:
+  class: ''
+extra: {  }

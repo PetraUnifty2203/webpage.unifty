@@ -1,0 +1,72 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% set attr_extra = '' %}
+{% if particle.extra %}
+    {% for attributes in particle.extra %}
+        {% for key, value in attributes %}
+            {% set attr_extra = attr_extra ~ ' ' ~ key|e ~ '="' ~ value|e('html_attr') ~ '"' %}
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
+{% block stylesheets %}
+    {% if particle.display.offcanvas %}
+        {{ parent() }}
+        <style type="text/css">
+            @media (min-width: {{ gantry.config.get('styles.breakpoints.mobile-menu-breakpoint')|default('85rem') }}) {
+                .g-offcanvas-toggle {
+                    display: none !important;
+                }
+            }
+        </style>
+    {% endif %}
+{% endblock %}
+
+{% block particle %}
+    <div class="g-social-search{% if particle.css.class %} {{ particle.css.class|e }}{% endif %}" {% if particle.extra %}{{ attr_extra|raw }}{% endif %}>
+        {% if particle.display.social %}
+            <span class="g-social-icons">
+                {% for item in particle.social.items %}
+                    <a target="{{ particle.target|default('_blank')|e }}" href="{{ item.link|e }}" {% if item.tooltip %}data-uk-tooltip="{pos:'bottom'}" title="{{ item.tooltip|e }}" aria-label="{{ item.tooltip|e }}"{% endif %}>
+                        <span class="{{ item.icon|e }}"></span>
+                    </a>
+                {% endfor %}
+            </span>
+        {% endif %}
+
+        {% if particle.display.search or particle.display.offcanvas %}
+            <span class="g-search-offcanvas{% if particle.display.social %} g-so-margin{% endif %}">
+
+                {% if particle.display.search %}
+                    <span class="g-search-icon{% if particle.display.search and particle.display.offcanvas %} g-search-margin{% endif %}">
+                        <a href="#modal-search" data-uk-modal="{center:true}" {% if particle.search.text %}data-uk-tooltip="{pos:'bottom'}" title="{{ particle.search.text|e }}"{% endif %} aria-label="{{'Search'|trans_key('IT_ACCESS_SEARCH')}}">
+                            <i class="{{ particle.search.icon|default("fa fa-search")|e }}"></i>
+                        </a>
+                    </span>
+
+                    <div id="modal-search" class="uk-modal">
+                        <a class="uk-modal-close uk-close" aria-label="{{'Close'|trans_key('IT_ACCESS_CLOSE')}}"></a>
+                        <div class="uk-modal-dialog">
+                            {% if gantry.platform.getName() == 'joomla' %}
+                                {{ gantry.platform.filter("{loadposition modal-search}")|html|raw }}
+                            {% endif %}
+
+                            {% if gantry.platform.getName() == 'wordpress' %}
+                                {{ gantry.platform.call('get_search_form') }}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if particle.display.offcanvas %}
+                    <span class="g-offcanvas-icon">           
+                        <a data-offcanvas-toggle="" {% if particle.offcanvas.text %}data-uk-tooltip="{pos:'bottom'}" title="{{ particle.offcanvas.text|e }}"{% endif %} aria-label="{{'Offcanvas'|trans_key('IT_ACCESS_OFFCANVAS')}}">
+                          <i class="{{ particle.offcanvas.icon|default("fa fa-bars")|e }}"></i>
+                        </a>
+                    </span>
+                {% endif %}
+
+            </span>
+        {% endif %}
+    </div>
+{% endblock %}

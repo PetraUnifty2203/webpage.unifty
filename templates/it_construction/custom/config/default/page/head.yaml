@@ -1,0 +1,23 @@
+meta: {  }
+head_bottom: ''
+atoms:
+  -
+    type: uikit
+    title: 'UIkit for Gantry5'
+    attributes:
+      enabled: '1'
+      jslocation: footer
+    id: uikit-4783
+  -
+    type: template-js
+    title: Template.js
+    attributes:
+      enabled: '1'
+    id: template-js-7534
+  -
+    type: scrollreveal-js
+    title: ScrollReveal.js
+    attributes:
+      enabled: '1'
+      mobile: 'false'
+    id: scrollreveal-js-2405

@@ -1,0 +1,578 @@
+// Override for Particles Title and Introtext that comes from "UIkit for Gantry5" atom
+body {
+	.g-particle-intro {
+		margin-bottom: 3rem;
+		text-align: center;
+		.g-particle-intro {
+			margin-bottom: 3rem;
+		}
+		.g-main-title {
+			margin-bottom: 0;
+		}
+		.g-title-separator {
+			height: 2px;
+			width: 100px;
+			margin: 20px auto;
+			background: $accent-color-1;
+			&.no-intro-text {
+				margin: 2.5rem auto 0;
+			}
+		}
+	}
+	.title-dot {
+		.g-particle-intro {
+			.g-main-title {
+				&:after {
+					display: inline-block;
+					content: ".";
+					margin-left: 3px;
+					font-size: 60px;
+					color: $accent-color-1;
+					height: 0;
+					line-height: 0;
+				}
+			}
+		}
+	}
+}
+
+body {
+	// Offcanvas Toggle
+	.offcanvas-toggle-particle {
+		&.g-offcanvas-toggle {
+			color: $header-text-color;
+			&:hover {
+				color: $accent-color-1;
+			}
+		}
+	}
+
+	// Contacts
+	.g-contacts {
+		&.style1 {
+			.g-contacts-item {
+				&.item-button {
+					> a {
+						display: inline-block;
+						padding: 0.5rem 2.2rem;
+						border-radius: 50px;
+						background: $accent-color-1;
+						color: $white !important;
+						border: 0;
+						line-height: $core-line-height;
+						font-size: $fontsizes-body-font-size;
+						vertical-align: middle;
+						text-shadow: none;
+						box-shadow: none;
+						text-align: center;
+						@include transition(all 0.2s);
+						&:hover {
+							background: lighten($accent-color-1, 8%);
+						}
+						&:active, &:focus {
+							background: lighten($accent-color-1, 8%);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Slideshow
+	.g-slideshow {
+		&.custom {
+			.g-slideshow-title {
+				font-size: 45px;
+				line-height: 65px;
+				margin-bottom: 30px;
+				@include breakpoint(mobile-only) {
+					font-size: 40px;
+					line-height: 55px;
+				}
+			}
+			.g-slideshow-desc {
+				font-size: 18px;
+				line-height: 35px;
+			}
+			.g-slideshow-buttons {
+				margin-top: 40px;
+				.button {
+					font-size: 15px;
+					text-transform: uppercase;
+					&.empty {
+						color: #ffffff;
+						border-color: #ffffff;
+						&:hover {
+							border-color: $accent-color-1;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Hero Slider
+	.g-hero-slider {
+		&.custom {
+			@include breakpoint(mobile-only) {
+				height: 100vh !important;
+			}
+			.g-hero-title {
+				font-size: 45px;
+				line-height: 65px;
+				margin-bottom: 30px;
+				@include breakpoint(mobile-only) {
+					font-size: 40px;
+					line-height: 55px;
+				}				
+			}
+			.g-hero-desc {
+				font-size: 18px;
+				line-height: 35px;
+				@include breakpoint(mobile-only) {
+					display: none;
+				}			
+			}
+			.g-hero-buttons {
+				margin-top: 40px;
+				.button {
+					padding: 0.7rem 2.2rem;
+					font-size: 15px;
+					text-transform: uppercase;
+					&.empty {
+						color: #ffffff;
+						border-color: #ffffff;
+						&:hover {
+							border-color: $accent-color-1;
+						}
+					}
+				}				
+			}
+			.g-hero-slider-item-container {
+				margin-top: 0;
+			}
+		}
+	}
+
+	// Main Feature
+	.g-main-feature {
+		&.custom {
+			.g-main-feature-title {
+				font-size: $fontsizes-body-font-size*1.3;
+				margin-top: 0;
+			}
+		}
+		&.fullwidth {
+			.g-content {
+				margin: 0;
+			}
+			.g-main-feature-image {
+				width: 100%;
+			}
+			.g-block {
+				&:not(.image-block) {
+					padding: 5%;
+					@include breakpoint(desktop-range) {
+						padding: 2%;
+					}
+					@include breakpoint(tablet-range) {
+						padding: 80px;
+					}
+					@include breakpoint(mobile-only) {
+						padding: 60px;
+					}
+				}
+			}
+			.button {
+				&:hover {
+					background: lighten($accent-color-1, 8%);
+				}
+				&:active, &:focus {
+					background: lighten($accent-color-1, 8%);
+				}				
+			}
+			&.margin-top {
+				@include breakpoint(tablet-range) {
+					margin-top: -80px;
+				}
+				@include breakpoint(mobile-only) {
+					margin-top: -60px;
+				}
+			}
+		}
+		&.warranty {
+			margin-top: -15px;
+			margin-bottom: -15px;
+			.g-content {
+				margin: 0;
+			}
+			.image-block {
+				display: block;
+			}
+		}
+	}
+
+	// Features
+	.g-features2-particle {
+		&.custom {
+			&.style2 {
+				margin-left: -30px;
+				margin-right: -30px;
+				.g-grid {
+					margin-bottom: 0;
+					&:first-child {
+						margin-top: -30px;
+					}
+					&:last-child {
+						margin-bottom: -30px;
+						.g-features2-particle-item {
+							&:last-child {
+								@include breakpoint(mobile-only) {
+									margin-bottom: 0;
+								}
+							}
+						}
+					}
+					@include breakpoint(mobile-only) {
+						margin-bottom: 0;
+					}
+				}
+				.g-features-particle-item, .g-features2-particle-item {
+					@include transition(all 0.3s);
+					&:hover {
+						box-shadow: 0 20px 90px rgba(0, 0, 0, 0.1);
+					}
+					@include breakpoint(mobile-only) {
+						margin-bottom: 0;
+					}
+				}
+				.g-content {
+					padding: 30px;
+				}
+				.g-features2-particle-desc {
+					line-height: 25px;
+				}
+			}
+		}
+	}
+
+	// Content PRO (Joomla)
+	.g-content-pro, .g-content-pro-slider, .g-content-pro-slideset {
+		&.custom {
+			&.style3 {
+				.g-info-container-style2 {
+					@include background(linear-gradient(to bottom, rgba($base-title-color, 0) 0px, rgba($base-title-color, 0.4) 20%, rgba($base-title-color, 0.9) 100%));
+					padding: 30px;
+					.button {
+						&:hover {
+							text-decoration: none;
+						}
+					}
+					.g-article-details {
+						color: #ffffff;
+						margin-top: 15px;
+						> span {
+							margin-right: 0;
+							&:after {
+								content: ".";
+								position: relative;
+								top: -3px;
+								margin: 0 15px;
+								font-size: 20px;
+								line-height: 0;
+							}
+							&:last-child {
+								&:after {
+									display: none;
+								}
+							}
+						}
+					}
+				}
+			}
+			&.style2 {
+				.g-info-container-style2 {
+					background: transparentize($base-title-color, 0.4);
+					padding: 30px;
+					.g-content-pro-title {
+						a {
+							color: #ffffff;
+							&:hover {
+								text-decoration: underline;
+							}
+						}
+					}
+					.button {
+						&:hover {
+							text-decoration: none;
+						}
+					}
+					.g-article-details {
+						color: #ffffff;
+						margin-top: 15px;
+						> span {
+							margin-right: 0;
+							&:after {
+								content: ".";
+								position: relative;
+								top: -3px;
+								margin: 0 15px;
+								font-size: 20px;
+								line-height: 0;
+							}
+							&:last-child {
+								&:after {
+									display: none;
+								}
+							}
+						}
+						.g-article-category {
+							a {
+								color: #ffffff;
+								&:hover {
+									text-decoration: underline;
+								}									
+							}
+						}
+					}
+				}
+			}
+			&.image-overlay {
+				.g-info-container-style2 {
+					background: none;
+				}
+				.g-content-pro-image {
+					background: $base-title-color;
+					img {
+						opacity: 0.3;
+						@include transition(all 0.2s);
+					}
+				}
+				.g-content-pro-item {
+					&:hover {
+						.g-content-pro-image {
+							img {
+								opacity: 0.6;
+							}
+						}
+					}
+				}
+			}
+			.g-content-pro-item {
+				@include transform(none);
+			}
+		}
+	}
+
+	// News Pro (Joomla) particle in the Footer
+	.g-news-pro {
+		&.footer {
+			.g-news-pro-item, .g-news-pro-link {
+				.g-news-pro-title {
+					font-family: get-font-family($fonts-body-font);
+					font-size: $fontsizes-body-font-size;
+					font-weight: normal;
+					line-height: inherit;
+					margin-bottom: 0;
+					a {
+						color: lighten($footer-text-color, 20%);
+						&:hover {
+							color: $accent-color-1;
+						}
+					}
+				}
+				.g-info-container {
+					padding: 10px 0;
+					border-top: 1px solid lighten($footer-background-color, 5%);
+				}
+			}
+			.uk-grid {
+				+ .uk-grid {
+					padding-top: 0;
+					margin-top: 0;
+				}
+			}
+			.g-news-pro-page {
+				> div {
+					&:first-child {
+						.g-news-pro-item {
+							.g-info-container {
+								border-top: 0;
+								padding-top: 0;
+							}
+						}						
+					}
+				}
+			}
+		}
+	}
+
+	// Portfolio Particle
+	.g-portfolio {
+		.g-portfolio-filter {
+			margin-bottom: 40px;
+			&.uk-subnav {
+				> * > * {
+					color: #ffffff;
+				}
+			}
+			&.uk-subnav-pill > * > * {
+				border: none;
+				border-radius: 50px;
+				padding: 5px 15px;
+				background: $base-title-color;
+				@include transition(all, 0.2s);
+				&:focus, &:hover {
+					background: $accent-color-1;
+					box-shadow: none;
+					border: none;
+					color: #ffffff;
+				}
+			}
+			.uk-active {
+				> a {
+					background: $accent-color-1;
+					border: none;
+					color: #ffffff;
+					box-shadow: none;
+				}
+			}
+		}
+		&.gutter-enabled {
+			.g-portfolio-item {
+				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.07);
+			}
+		}
+		.g-info-container {
+			padding: 25px;
+		}
+		.g-content-pro-desc {
+			margin-top: 0.8rem;
+		}
+		.g-item-details {
+			margin-top: 0.8rem;
+			color: $accent-color-1;
+		}
+		.g-portfolio-special {
+			color: $accent-color-1;
+		}
+		.g-info-container-style2 {
+			padding: 25px !important;
+			.g-portfolio-special, .g-item-details {
+				color: $accent-color-1;
+			}
+		}
+		&.style3 {
+			.g-info-container {
+				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.07);				
+			}
+		}
+	}
+
+	// Gallery Particle
+	.g-gallery {
+		.g-gallery-filter {
+			margin-bottom: 40px;
+			&.uk-subnav {
+				> * > * {
+					color: #ffffff;
+				}
+			}
+			&.uk-subnav-pill > * > * {
+				border: none;
+				border-radius: 50px;
+				padding: 5px 15px;
+				background: $base-title-color;
+				@include transition(all, 0.2s);
+				&:focus, &:hover {
+					background: $accent-color-1;
+					box-shadow: none;
+					border: none;
+					color: #ffffff;
+				}
+			}
+			.uk-active {
+				> a {
+					background: $accent-color-1;
+					border: none;
+					color: #ffffff;
+					box-shadow: none;
+				}
+			}
+		}
+	}
+
+	// Our Team Particle
+	.g-our-team, .g-our-team-slider, .g-our-team-slideset {
+		&.gutter-enabled {
+			.uk-slider-container {
+				padding: 5px;
+				margin: -5px;
+			}
+			.g-our-team-item {
+				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.07);
+			}
+		}
+	}
+
+	// CTA Button Particle
+	.g-cta-button {
+		&.style1 {
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.07);
+		}
+	}
+
+	// To Top Particle
+	#g-to-top {
+		z-index: 10;
+	}
+}
+
+// Overrides for styles coming from "UIkit for Gantry5" atom
+body {
+	// Lightbox hover magnifier icon size
+	.uk-overlay-area:empty::before, .uk-overlay-icon::before {
+		font-size: 20px;
+		height: 55px;
+		width: 55px;
+		line-height: 55px;
+		margin-left: -27.5px;
+		margin-top: -27.5px;
+		background: $accent-color-1;
+		border-radius: 50%;
+	}
+	//UIkit Slidenav
+	.uk-slidenav {
+		background: #ffffff;
+		color: $base-text-color;
+		font-size: 90%;
+		border-radius: 50%;
+		height: 40px;
+		line-height: 40px;
+		width: 40px;
+		box-shadow: 0 3px 3px rgba(0, 0, 0, 0.08);
+		&:hover {
+			background: $accent-color-1;
+			color: #ffffff !important;
+		}
+		&:focus {
+			color: $base-text-color;
+		}
+	}
+	.uk-slidenav-previous {
+		&:before {
+			content: "\f060";
+		}
+	}
+	.uk-slidenav-next {
+		&:before {
+			content: "\f061";
+		}
+	}
+	.uk-slidenav-position {
+		.uk-slidenav {
+			margin-top: -20px;
+			@include transition(all 0.2s);
+		}
+	}
+}

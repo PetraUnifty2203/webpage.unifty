@@ -1,0 +1,11 @@
+enabled: '1'
+style: style1
+title: ''
+description: ''
+link: ''
+buttontext: ''
+buttonicon: ''
+target: _parent
+css:
+  class: ''
+extra: {  }

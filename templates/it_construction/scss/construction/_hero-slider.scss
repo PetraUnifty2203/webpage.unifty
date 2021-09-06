@@ -1,0 +1,102 @@
+.g-hero-slider {
+	@include breakpoint(mobile-only) {
+		height: auto !important;
+	}
+	position: relative;
+	.uk-slidenav-position {
+		height: 100%;
+		z-index: 2;
+		overflow: hidden;
+		.uk-slider-container {
+			height: 100%;
+		}
+		.uk-slideset, .uk-slider {
+			height: 100%;
+		}
+	}
+	.uk-dotnav {
+		margin: 0 0 0 -15px;
+		position: relative;
+		bottom: 50px;
+		@include breakpoint(mobile-only) {
+			bottom: 35px;
+		}
+		> * {
+			> * {
+				width: 15px;
+				height: 15px;
+			}
+		}
+	}
+	.g-hero-slider-item {
+		@include display(flex);
+		@include align-items(center);
+		@include justify-content(center);
+		height: 100%;
+		width: 100%;
+		@include breakpoint(mobile-only) {
+			height: auto;
+		}
+	}
+	.g-hero-slider-item-container {
+		width: 100%;
+		padding: 0 80px;
+		text-align: center;
+		margin-top: -7px;
+		@include breakpoint(mobile-only) {
+			padding: 70px 50px;
+		}
+	}
+	.g-hero-title {
+		margin: 0;
+	}
+	.g-hero-desc {
+		margin: 35px 0 0;
+		font-size: 1.3rem;
+	}
+	.g-hero-buttons {
+		margin: 40px 0 0;
+		.button {
+			padding: 0.8rem 1.3rem;
+			font-size: 1.2rem;
+			margin-right: 15px;
+			min-width: 180px;
+			border: 2px solid $accent-color-1;
+			@include transition(all 0.3s);
+			&:hover {
+				background: lighten($accent-color-1, 8%);
+				border-color: lighten($accent-color-1, 8%);
+
+			}
+			&:last-child {
+				margin-right: 0;
+			}
+			> span {
+				margin-right: 10px;
+			}
+			@include breakpoint(mobile-only) {
+				display: block;
+				margin-right: 0;
+				margin-bottom: 15px;
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+			&.empty {
+				background: none;
+				border: 2px solid;
+				&:hover {
+					background: $accent-color-1;
+					border-color: $accent-color-1;
+					color: #ffffff;
+				}
+			}
+		}
+	}
+	.particles-js-canvas-el {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+	}
+
+}

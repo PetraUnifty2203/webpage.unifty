@@ -1,0 +1,46 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% set platformsearch %}
+	{% if gantry.platform.getName() == 'joomla' %}
+		{{ gantry.platform.filter("{loadposition modal-search}")|html|raw }}
+	{% endif %}
+
+	{% if gantry.platform.getName() == 'wordpress' %}
+		{{ gantry.platform.call('get_search_form') }}
+	{% endif %}
+
+	{% if gantry.platform.getName() == 'grav' %}
+		{% include 'partials/simplesearch_searchbox.html.twig' %}
+	{% endif %}
+{% endset %}
+
+{% set modalsearch %}
+	<a href="#modal-search" data-uk-modal aria-label="{{'Search'|trans_key('IT_ACCESS_SEARCH')}}"><i class="fa fa-search"></i></a>
+
+	<div id="modal-search" class="uk-modal">
+		<div class="uk-modal-dialog">
+			<a class="uk-modal-close uk-close" aria-label="{{'Close'|trans_key('IT_ACCESS_CLOSE')}}"></a>
+			{{ platformsearch }}
+		</div>
+	</div>
+{% endset %}
+
+{% set modalsearch_s2 %}
+	<a href="#modal-search" data-uk-modal="{center:true}" aria-label="{{'Search'|trans_key('IT_ACCESS_SEARCH')}}"><i class="fa fa-search"></i></a>
+
+	<div id="modal-search" class="uk-modal">
+		<a class="uk-modal-close uk-close" aria-label="{{'Close'|trans_key('IT_ACCESS_CLOSE')}}"></a>
+		<div class="uk-modal-dialog">
+			{{ platformsearch }}
+		</div>
+	</div>
+{% endset %}
+
+{% block particle %}
+	
+	<div class="modal-search-container {{ particle.style|default("style1")|e }}">
+		{% if particle.style|default("style1") == "style1" %}{{ modalsearch }}{% endif %}
+		{% if particle.style|default("style1") == "style2" %}{{ modalsearch_s2 }}{% endif %}
+	</div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% set attr_extra = '' %}
+{% if particle.extra %}
+    {% for attributes in particle.extra %}
+        {% for key, value in attributes %}
+            {% set attr_extra = attr_extra ~ ' ' ~ key|e ~ '="' ~ value|e('html_attr') ~ '"' %}
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
+{% block particle %}
+    {% set url = url(particle.url)|default(gantry.siteUrl()) %}
+    {% if (url == gantry.siteUrl()) %}{% set rel='rel="home"' %}{% endif %}
+
+<div class="g-logo-image" {% if particle.extra %}{{ attr_extra|raw }}{% endif %}>
+    <a href="{{ url }}" title="{{ particle.text }}" {{ rel|default('')|raw }} class="g-logo {{ particle.class|default('')|raw }}">
+        {% set image = url(particle.image) %}
+        {% set imagefixed = url(particle.imagefixed) %}
+        {% if image or imagefixed %}
+            {% if image %}<img class="g-logo-height g-normal-logo" src="{{ url(particle.image) }}" alt="{{ particle.text }}" />{% endif %}
+            {% if imagefixed %}<img class="g-logo-height g-fixed-logo" src="{{ url(particle.imagefixed) }}" alt="{{ particle.text }}" />{% endif %}
+        {% else %}
+        {{ particle.text|default('Logo') }}
+        {% endif %}
+    </a>
+</div>
+{% endblock %}

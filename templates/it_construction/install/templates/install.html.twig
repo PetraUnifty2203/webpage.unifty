@@ -1,0 +1,19 @@
+{% include 'style.html.twig' %}
+
+<div class="g5i">
+    <h1>
+        <span class="g5-title">{{ name }} Template Installed</span>
+        <span class="g5-info">v{{ version }} / {{ date }}</span>
+    </h1>
+
+    <p>Select if you want to set the template as "Default" or if you want to go to the Template Manager and start configuring it.</p>
+
+    <div class="g5-actions">
+        <a href="{{ install_url }}" class="g5-button"><span class="g5-icon icon-cube"></span> Set as Default</a>
+        <a href="{{ edit_url }}" class="g5-button">Configure <span class="g5-icon icon-chevron-right"></span></a>
+    </div>
+    
+    <div class="g5-rockettheme">
+        <a href="http://www.inspiretheme.com"><span>InspireTheme</span></a>
+    </div>
+</div>

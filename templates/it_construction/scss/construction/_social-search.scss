@@ -1,0 +1,177 @@
+.g-social-search {
+	padding: 30px 0;
+	text-align: right;
+	> span {
+		display: inline-block;
+	}
+
+	.g-search-offcanvas {
+		> span {
+			display: inline-block;
+		}
+
+		.g-search-margin {
+			margin-right: 3px;
+		}
+
+		&.g-so-margin {
+			margin-left: 3px;
+		}
+	}
+
+	// Social Icons
+	.g-social-icons {
+		a {
+			display: inline-block;
+			background: none;
+			color: $header-text-color;
+			width: 30px;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			margin-right: 3px;
+			@include transition(all, 0.2s);
+			&:last-child {
+				margin-right: 0;
+			}
+			&:hover {
+				color: $header-text-color;
+				opacity: 0.6;
+			}
+		}
+	}
+
+	// Modal Search
+	.g-search-icon {
+		> a {
+			color: $header-text-color;
+			display: block;
+			width: 30px;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			@include transition(all, 0.2s);
+			&:hover {
+				color: $header-text-color;
+				opacity: 0.6;
+			}
+		}
+	}
+	#modal-search {
+		&.uk-open {
+			.uk-modal-dialog {
+				@include transform(scale(1));
+			}
+			.uk-close {
+				@include transform(scale(1));
+			}
+		}
+		.uk-close {
+			color: #ffffff !important;
+			opacity: 1;
+			font-size: 24px;
+			top: 25px;
+			right: 25px;
+			position: absolute;
+			@include transform(scale(0));
+			@include transition(all 0.3s);
+			&:hover {
+				@include transform(rotate(90deg));
+				color: $accent-color-1 !important;
+			}
+		}
+		.uk-modal-dialog {
+			padding: 0;
+			border-radius: 0;
+			width: 455px;
+			background: none;
+			box-shadow: none;
+			@include transform(scale(0));
+			// Joomla
+			.search {
+				form {
+					margin-bottom: 0;
+				}
+				input {
+					margin-bottom: 0;
+					border: none;
+					font-size: 2.3rem;
+					width: 455px;
+					color: #ffffff;
+					text-align: center;
+					background: none;
+					padding: 20px;
+					border-radius: 0;
+					box-shadow: 0 3px 0 0 rgba(255, 255, 255, 0.3);
+					@include placeholder {
+						color: #ffffff;
+						opacity: 1;
+					}
+					@include breakpoint(mobile-only) {
+						width: 100%;
+						padding: 20px 0;
+					}
+					&:focus {
+						box-shadow: 0 3px 0 0 rgba(255, 255, 255, 1);
+					}
+				}
+			}
+			// Wordpress
+			.search-form {
+				.search-field {
+					border: none;
+					font-size: 2.3rem;
+					width: 455px;
+					color: #ffffff;
+					text-align: center;
+					background: none;
+					padding: 20px;
+					border-radius: 0;
+					box-shadow: 0 3px 0 0 rgba(255, 255, 255, 0.3);
+					@include placeholder {
+						color: #ffffff;
+						opacity: 1;
+					}
+					@include breakpoint(mobile-only) {
+						width: 100%;
+						padding: 20px 0;
+					}
+					&:focus {
+						box-shadow: 0 3px 0 0 rgba(255, 255, 255, 1);
+					}
+				}
+				label {
+					margin-bottom: 0;
+				}
+				.search-submit {
+					display: none;
+				}
+			}
+		}
+	}
+
+	// Offcanvas
+	.g-offcanvas-icon {
+		> a {
+			color: $header-text-color;
+			width: 30px;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			display: block;
+			cursor: pointer;
+			@include transition(all, 0.2s);
+			&:hover {
+				color: $header-text-color;
+				opacity: 0.6;
+			}
+		}
+	}
+}
+
+// RTL styling adjustment
+[dir="rtl"] {
+	.g-social-search {
+		text-align: left;
+	}
+}

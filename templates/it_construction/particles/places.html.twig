@@ -1,0 +1,204 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% set attr_extra = '' %}
+{% if particle.extra %}
+    {% for attributes in particle.extra %}
+        {% for key, value in attributes %}
+            {% set attr_extra = attr_extra ~ ' ' ~ key|e ~ '="' ~ value|e('html_attr') ~ '"' %}
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
+{% set particleheading %}
+    <div class="g-particle-intro">
+        {% if particle.mainheading %}
+            <h3 class="g-title g-main-title">{{ particle.mainheading|raw }}</h3>
+            <div class="g-title-separator {% if particle.introtext == false %}no-intro-text{% endif %}"></div>
+        {% endif %} 
+        {% if particle.introtext %}<p class="g-introtext">{{ particle.introtext|raw }}</p>{% endif %}
+    </div>
+{% endset %}
+
+{% set imagecontent %}
+    {% if particle.image %}
+        <img class="g-places-image{% if particle.imagebottom|default('yes')|e == 'yes' %} image-bottom{% endif %}" alt="{{ particle.alt|e }}" src="{{ url(particle.image) }}" {{ particle.image|imagesize|raw }}>
+    {% endif %}
+{% endset %}
+
+{% set placesitems %}
+    {% for item in particle.items %}
+        {% set attr_extra_item = '' %}
+        {% for extra in item.extra %}
+            {% set attr_extra_item = attr_extra_item ~ ' ' ~ extra|keys|first|e ~ '="' ~ extra|values|first|e('html_attr') ~ '"' %}
+        {% endfor %}
+
+        {% set title %}
+            <h4 class="g-places-title">
+                {%- if item.link -%}
+                    <a target="{{ item.target|default('_parent')|e }}" href="{{ item.link|e }}">
+                {%- endif -%}
+                    {{- item.title|raw -}}
+                {%- if item.link -%}
+                    </a>
+                {%- endif -%}
+            </h4>
+        {% endset %}
+
+        {% set description %}
+            <div class="g-places-desc">
+                {{- item.description|raw -}}
+            </div>
+        {% endset %}
+
+        {% set specialtext %}
+            <div class="g-places-special">
+                {%- if item.specialicon -%}
+                    <i class="{{ item.specialicon|e }}"></i>
+                {%- endif -%}
+                {{- item.specialtext|raw -}}
+            </div>
+        {% endset %}
+
+        {% set bottomlink %}
+            <div class="g-places-link">
+                <a target="{{ item.target|default('_parent')|e }}" href="{{ item.link|e }}">
+                    {{- item.bottomlink|raw -}}
+                </a>
+            </div>
+        {% endset %}
+
+        <div class="g-places-item{% if item.class %} {{ item.class|e }}{% endif %}" style="left: {{ item.left|e }}%; top: {{ item.top|e }}%;" data-uk-dropdown="{'pos': 'top-center','mode': '{{ particle.mode|default('click')|e }}'}" {% if item.extra %}{{ attr_extra_item|raw }}{% endif %}>
+            <div class="g-places-item-toggle">
+                <span class="{{ item.toggleicon|default('fa fa-plus')|e }}"></span>
+            </div>
+
+            <div class="uk-dropdown-blank">
+                <div class="g-places-item-content uk-panel uk-panel-box">
+                    {% if item.title %}
+                        {{ title }}
+                    {% endif %}
+
+                    {% if item.description %}
+                        {{ description }}
+                    {% endif %}
+
+                    {% if item.specialtext or item.bottomlink %}
+                        <div class="g-bottom-info clearfix{% if item.specialtext == false %} no-special{% endif %}{% if item.bottomlink == false %} no-link{% endif %}">
+                            {% if item.specialtext %}
+                                {{ specialtext }}
+                            {% endif %}
+
+                            {% if item.bottomlink %}
+                                {{ bottomlink }}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+{% endset %}
+
+{% set placesitemsmobile %}
+    {% for item in particle.items %}
+        {% set attr_extra_item = '' %}
+        {% for extra in item.extra %}
+            {% set attr_extra_item = attr_extra_item ~ ' ' ~ extra|keys|first|e ~ '="' ~ extra|values|first|e('html_attr') ~ '"' %}
+        {% endfor %}
+
+        {% set title %}
+            <h4 class="g-places-title">
+                {%- if item.link -%}
+                    <a target="{{ item.target|default('_parent')|e }}" href="{{ item.link|e }}">
+                {%- endif -%}
+                    {{- item.title|raw -}}
+                {%- if item.link -%}
+                    </a>
+                {%- endif -%}
+            </h4>
+        {% endset %}
+
+        {% set description %}
+            <div class="g-places-desc">
+                {{- item.description|raw -}}
+            </div>
+        {% endset %}
+
+        {% set specialtext %}
+            <div class="g-places-special">
+                {%- if item.specialicon -%}
+                    <i class="{{ item.specialicon|e }}"></i>
+                {%- endif -%}
+                {{- item.specialtext|raw -}}
+            </div>
+        {% endset %}
+
+        {% set bottomlink %}
+            <div class="g-places-link">
+                <a target="{{ item.target|default('_parent')|e }}" href="{{ item.link|e }}">
+                    {{- item.bottomlink|raw -}}
+                </a>
+            </div>
+        {% endset %}
+
+        <li {% if item.class %}class="{{ item.class|e }}"{% endif %}>
+            <div class="g-places-item-mobile">
+                <div class="g-places-item-content">
+                    {% if item.title %}
+                        {{ title }}
+                    {% endif %}
+
+                    {% if item.description %}
+                        {{ description }}
+                    {% endif %}
+
+                    {% if item.specialtext or item.bottomlink %}
+                        <div class="g-bottom-info clearfix{% if item.specialtext == false %} no-special{% endif %}{% if item.bottomlink == false %} no-link{% endif %}">
+                            {% if item.specialtext %}
+                                {{ specialtext }}
+                            {% endif %}
+
+                            {% if item.bottomlink %}
+                                {{ bottomlink }}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </li>
+
+    {% endfor %}
+{% endset %}
+
+{% block particle %}
+    <div class="g-places{% if particle.css.class %} {{ particle.css.class|e }}{% endif %}" {% if particle.extra %}{{ attr_extra|raw }}{% endif %}>
+        {% if particle.mainheading or particle.introtext %}
+            {{ particleheading }}
+        {% endif %}
+        <div class="g-grid">
+            <div class="g-block">
+                <div class="g-places-container">
+                    {{ imagecontent }}
+                    {{ placesitems }}
+                </div>
+                <div class="g-places-slideset{% if particle.imagebottom|default('yes')|e == 'yes' %} particle-image-bottom{% endif %}">
+                    <div class="uk-slidenav-position" data-uk-slideset="{default: 1}">
+                        <div class="uk-slider-container">
+                            <ul class="uk-slideset uk-grid">
+                                {{ placesitemsmobile }}
+                            </ul>
+                        </div>
+                        <ul class="uk-slideset-nav uk-dotnav uk-flex-center">
+                        {% set counter = 0 %}
+                        {% for item in particle.items %}
+                            <li data-uk-slideset-item="{{ counter }}"><a href=""></a></li>
+                            {% set counter = counter + 1 %}
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

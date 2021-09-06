@@ -1,0 +1,7 @@
+enabled: '1'
+style: style1
+icon: ''
+offset: ''
+css:
+  class: totop
+content: ''

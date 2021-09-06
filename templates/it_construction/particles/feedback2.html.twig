@@ -1,0 +1,85 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% set attr_extra = '' %}
+{% if particle.extra %}
+	{% for attributes in particle.extra %}
+		{% for key, value in attributes %}
+			{% set attr_extra = attr_extra ~ ' ' ~ key|e ~ '="' ~ value|e('html_attr') ~ '"' %}
+		{% endfor %}
+	{% endfor %}
+{% endif %}
+
+{% set particleheading %}
+	<div class="g-particle-intro">
+		{% if particle.mainheading %}
+			<h3 class="g-title g-main-title">{{ particle.mainheading|raw }}</h3>
+			<div class="g-title-separator {% if particle.introtext == false %}no-intro-text{% endif %}"></div>
+		{% endif %}	
+		{% if particle.introtext %}<p class="g-introtext">{{ particle.introtext|raw }}</p>{% endif %}
+	</div>
+{% endset %}
+
+{% block particle %}
+	<div class="g-feedback2{% if particle.css.class %} {{ particle.css.class|e }}{% endif %}" {% if particle.extra %}{{ attr_extra|raw }}{% endif %}>
+		{% if particle.mainheading or particle.introtext %}
+			{{ particleheading }}
+		{% endif %}
+		{% for row in particle.items|batch(particle.columns|default('2')|e) %}
+			<div class="g-grid">
+				{% for item in row %}
+					{% set attr_extra_item = '' %}
+					{% for extra in item.extra %}
+						{% set attr_extra_item = attr_extra_item ~ ' ' ~ extra|keys|first|e ~ '="' ~ extra|values|first|e('html_attr') ~ '"' %}
+					{% endfor %}
+					<div class="g-block{% if item.class %} {{ item.class|e }}{% endif %}" {% if item.extra %}{{ attr_extra_item|raw }}{% endif %}>
+						<div class="g-content">
+							<div class="g-feedback-item">								
+								{% if item.image %}
+									<div class="g-user-image">
+										<img alt="{{ item.alt|e }}" src="{{ url(item.image) }}" {{ item.image|imagesize|raw }}>
+									</div>
+								{% endif %}
+
+								{% if item.feedback or item.customername %}
+									<div class="g-feeback-container">
+										{% if item.feedback %}
+											<div class="g-feedback-text">
+												{{- item.feedback|raw -}}
+											</div>
+										{% endif %}
+
+										{% if item.customername or item.position or item.company %}
+											<div class="g-user-details">
+												{%- if item.customername -%}
+													<div class="g-user-name">
+														{{- item.customername|e -}}
+													</div>
+												{%- endif -%}
+
+												{%- if item.position or item.company -%}
+													<div class="g-user-company">
+														{{- item.position|e -}}{% if item.company and item.position %} - {% endif %}
+
+														{%- if item.company -%}
+															{%- if item.companylink -%}
+																<a target="{{ item.target|default('_parent')|e }}" href="{{ item.companylink|e }}">
+															{%- endif -%}
+																{{- item.company|e -}}
+															{%- if item.companylink -%}
+																</a>
+															{%- endif -%}
+														{%- endif -%}
+													</div>
+												{%- endif -%}
+											</div>
+										{% endif %}
+									</div>
+								{% endif %}								
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

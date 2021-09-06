@@ -1,0 +1,370 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% set attr_extra = '' %}
+{% if particle.extra %}
+	{% for attributes in particle.extra %}
+		{% for key, value in attributes %}
+			{% set attr_extra = attr_extra ~ ' ' ~ key|e ~ '="' ~ value|e('html_attr') ~ '"' %}
+		{% endfor %}
+	{% endfor %}
+{% endif %}
+
+{% set particleheading %}
+	<div class="g-particle-intro">
+		{% if particle.mainheading %}
+			<h3 class="g-title g-main-title">{{ particle.mainheading|raw }}</h3>
+			<div class="g-title-separator {% if particle.introtext == false %}no-intro-text{% endif %}"></div>
+		{% endif %}	
+		{% if particle.introtext %}<p class="g-introtext">{{ particle.introtext|raw }}</p>{% endif %}
+	</div>
+{% endset %}
+
+{% set filterid = random() %}
+
+{% set portfolio_filter %}
+	<ul id="g-portfolio-filter_{{ filterid }}" class="g-portfolio-filter uk-subnav uk-subnav-pill">
+		<li class="uk-active" data-uk-filter="all"><a href="">{{ particle.filterall|default('All')|raw }}</a></li>
+		{% if particle.filter1 %}<li data-uk-filter="filter1_{{ filterid }}"><a href="">{{ particle.filter1|raw }}</a></li>{% endif %}
+		{% if particle.filter2 %}<li data-uk-filter="filter2_{{ filterid }}"><a href="">{{ particle.filter2|raw }}</a></li>{% endif %}
+		{% if particle.filter3 %}<li data-uk-filter="filter3_{{ filterid }}"><a href="">{{ particle.filter3|raw }}</a></li>{% endif %}
+		{% if particle.filter4 %}<li data-uk-filter="filter4_{{ filterid }}"><a href="">{{ particle.filter4|raw }}</a></li>{% endif %}
+		{% if particle.filter5 %}<li data-uk-filter="filter5_{{ filterid }}"><a href="">{{ particle.filter5|raw }}</a></li>{% endif %}
+	</ul>
+{% endset %}
+
+{% set portfolio_filter_s2 %}
+	{% set all_items = 0 %}
+	{% set filter1 = 0 %}
+	{% set filter2 = 0 %}
+	{% set filter3 = 0 %}
+	{% set filter4 = 0 %}
+	{% set filter5 = 0 %}
+	{% for item in particle.items %}
+		{% set all_items = all_items + 1 %}
+		{% if item.filter1 %}{% set filter1 = filter1 + 1 %}{% endif %}
+		{% if item.filter2 %}{% set filter2 = filter2 + 1 %}{% endif %}
+		{% if item.filter3 %}{% set filter3 = filter3 + 1 %}{% endif %}
+		{% if item.filter4 %}{% set filter4 = filter4 + 1 %}{% endif %}
+		{% if item.filter5 %}{% set filter5 = filter5 + 1 %}{% endif %}
+	{% endfor %}
+	<ul id="g-portfolio-filter_{{ filterid }}" class="g-portfolio-filter uk-subnav uk-subnav-pill">
+		<li class="uk-active" data-uk-filter="all"><a href="">{{ particle.filterall|default('All')|raw }} ({{ all_items }})</a></li>
+		{% if particle.filter1 %}<li data-uk-filter="filter1_{{ filterid }}"><a href="">{{ particle.filter1|raw }} ({{ filter1 }})</a></li>{% endif %}
+		{% if particle.filter2 %}<li data-uk-filter="filter2_{{ filterid }}"><a href="">{{ particle.filter2|raw }} ({{ filter2 }})</a></li>{% endif %}
+		{% if particle.filter3 %}<li data-uk-filter="filter3_{{ filterid }}"><a href="">{{ particle.filter3|raw }} ({{ filter3 }})</a></li>{% endif %}
+		{% if particle.filter4 %}<li data-uk-filter="filter4_{{ filterid }}"><a href="">{{ particle.filter4|raw }} ({{ filter4 }})</a></li>{% endif %}
+		{% if particle.filter5 %}<li data-uk-filter="filter5_{{ filterid }}"><a href="">{{ particle.filter5|raw }} ({{ filter5 }})</a></li>{% endif %}
+	</ul>
+{% endset %}
+
+{% set portfolio_filter_s3 %}
+	{% set all_items = 0 %}
+	{% set filter1 = 0 %}
+	{% set filter2 = 0 %}
+	{% set filter3 = 0 %}
+	{% set filter4 = 0 %}
+	{% set filter5 = 0 %}
+	{% for item in particle.items %}
+		{% set all_items = all_items + 1 %}
+		{% if item.filter1 %}{% set filter1 = filter1 + 1 %}{% endif %}
+		{% if item.filter2 %}{% set filter2 = filter2 + 1 %}{% endif %}
+		{% if item.filter3 %}{% set filter3 = filter3 + 1 %}{% endif %}
+		{% if item.filter4 %}{% set filter4 = filter4 + 1 %}{% endif %}
+		{% if item.filter5 %}{% set filter5 = filter5 + 1 %}{% endif %}
+	{% endfor %}
+	<ul id="g-portfolio-filter_{{ filterid }}" class="g-portfolio-filter uk-subnav uk-subnav-pill">
+		<li class="uk-active" data-uk-filter="all"><a href="" data-uk-tooltip="{cls: 'g-portfolio-tooltip'}" title="{{ all_items }}">{{ particle.filterall|default('All')|raw }}</a></li>
+		{% if particle.filter1 %}<li data-uk-filter="filter1_{{ filterid }}"><a href="" data-uk-tooltip="{cls: 'g-portfolio-tooltip'}" title="{{ filter1 }}">{{ particle.filter1|raw }}</a></li>{% endif %}
+		{% if particle.filter2 %}<li data-uk-filter="filter2_{{ filterid }}"><a href="" data-uk-tooltip="{cls: 'g-portfolio-tooltip'}" title="{{ filter2 }}">{{ particle.filter2|raw }}</a></li>{% endif %}
+		{% if particle.filter3 %}<li data-uk-filter="filter3_{{ filterid }}"><a href="" data-uk-tooltip="{cls: 'g-portfolio-tooltip'}" title="{{ filter3 }}">{{ particle.filter3|raw }}</a></li>{% endif %}
+		{% if particle.filter4 %}<li data-uk-filter="filter4_{{ filterid }}"><a href="" data-uk-tooltip="{cls: 'g-portfolio-tooltip'}" title="{{ filter4 }}">{{ particle.filter4|raw }}</a></li>{% endif %}
+		{% if particle.filter5 %}<li data-uk-filter="filter5_{{ filterid }}"><a href="" data-uk-tooltip="{cls: 'g-portfolio-tooltip'}" title="{{ filter5 }}">{{ particle.filter5|raw }}</a></li>{% endif %}
+	</ul>
+{% endset %}
+
+{% set portfolio_items %}
+	{% set portfolioid = random() %}
+	{% for row in particle.items|batch(particle.columns|default('3')|e) %}
+		{% for item in row %}
+			{% set attr_extra_item = '' %}
+			{% for extra in item.extra %}
+				{% set attr_extra_item = attr_extra_item ~ ' ' ~ extra|keys|first|e ~ '="' ~ extra|values|first|e('html_attr') ~ '"' %}
+			{% endfor %}
+
+			{% set filtertags %}
+				{% if particle.filters|default('disabled') != 'disabled' %}
+					data-uk-filter="all{% if item.filter1 %}, filter1_{{ filterid }}{% endif %}{% if item.filter2 %}, filter2_{{ filterid }}{% endif %}{% if item.filter3 %}, filter3_{{ filterid }}{% endif %}{% if item.filter4 %}, filter4_{{ filterid }}{% endif %}{% if item.filter5 %}, filter5_{{ filterid }}{% endif %}"
+				{% endif %}
+			{% endset %}
+
+			{% set image %}
+				<div class="g-portfolio-image">
+					{% if particle.lightbox|default('enable') == 'enable' or particle.lightbox|default('enable') == 'disable' %}
+						{% if particle.lightbox|default('enable') == 'enable' %}
+							{% if item.video %}
+								<a href="{{ item.video|e }}" class="uk-overlay uk-overlay-hover" data-uk-lightbox="{group:'{{ portfolioid }}'}">
+							{% else %}
+								<a href="{{ url(item.image, false, 0) }}" class="uk-overlay uk-overlay-hover" data-uk-lightbox="{group:'{{ portfolioid }}'}">
+							{% endif %}
+							{% if particle.style|default('style1') == 'style1' %}
+								<span class="uk-overlay-panel uk-overlay-background uk-overlay-icon uk-overlay-fade"></span>
+							{% endif %}
+						{% endif %}
+							<img alt="{{ item.alt|e }}" src="{{ url(item.image) }}" {{ item.image|imagesize|raw }}>
+						{% if particle.lightbox|default('enable') == 'enable' %}
+							</a>
+						{% endif %}
+					{% endif %}
+
+					{% if particle.lightbox|default('enable') == 'disablelink' %}
+						{% if item.link %}<a target="{{ item.target|default('_parent')|e }}" href="{{ item.link|e }}">{% endif %}
+							<img alt="{{ item.alt|e }}" src="{{ url(item.image) }}" {{ item.image|imagesize|raw }}>
+						{% if item.link %}</a>{% endif %}
+					{% endif %}
+				</div>
+			{% endset %}
+
+			{% set title %}
+				<h4 class="g-portfolio-title">
+					{%- if item.link -%}
+						<a target="{{ item.target|default('_parent')|e }}" href="{{ item.link|e }}">
+					{%- endif -%}
+						{{- item.title|raw -}}
+					{%- if item.link -%}
+						</a>
+					{%- endif -%}
+				</h4>
+			{% endset %}
+
+			{% set date %}
+				<div class="g-item-details">
+					<span class="date"><i class="fa fa-clock-o"></i>{{ item.date|raw }}</span>
+				</div>
+			{% endset %}
+
+			{% set description %}
+				<div class="g-portfolio-desc">
+					{{- item.description|raw -}}
+				</div>
+			{% endset %}
+
+			{% set specialtext %}
+				<div class="g-portfolio-special">
+					{%- if item.icon -%}
+						<i class="{{ item.icon|e }}"></i>
+					{%- endif -%}
+					{{- item.specialtext|raw -}}
+				</div>
+			{% endset %}
+
+			{% set bottomlink %}
+				<div class="g-portfolio-link">
+					<a target="{{ item.target|default('_parent')|e }}" href="{{ item.link|e }}">
+						{{- item.bottomlink|raw -}}
+						<i class="fa fa-long-arrow-right"></i>
+					</a>
+				</div>
+			{% endset %}
+
+			{% set style1 %}
+				<div class="g-portfolio-item-container{% if item.class %} {{ item.class|e }}{% endif %}" {{ filtertags }}>
+					<div class="g-portfolio-item"{% if item.extra %} {{ attr_extra_item|raw }}{% endif %}>
+						{% if item.image %}
+							{{ image }}
+						{% endif %}
+
+						{% if item.title or item.description %}
+							<div class="g-info-container">
+								{% if item.title %}
+									{{ title }}
+								{% endif %}
+
+								{% if item.date %}
+									{{ date }}
+								{% endif %}
+
+								{% if item.description %}
+									{{ description }}
+								{% endif %}
+
+								{% if item.specialtext or item.bottomlink %}
+									<div class="g-bottom-info clearfix{% if item.specialtext == false %} no-special{% endif %}{% if item.bottomlink == false %} no-link{% endif %}">
+										{% if item.specialtext %}
+											{{ specialtext }}
+										{% endif %}
+
+										{% if item.bottomlink %}
+											{{ bottomlink }}
+										{% endif %}
+									</div>
+								{% endif %}
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			{% endset %}
+
+			{% set style2 %}
+				<div class="g-portfolio-item-container{% if item.class %} {{ item.class|e }}{% endif %}" {{ filtertags }}>
+					<div class="g-portfolio-item uk-overlay uk-overlay-hover"{% if item.extra %} {{ attr_extra_item|raw }}{% endif %}>
+						{% if item.image %}
+							{{ image }}
+						{% endif %}
+
+						{% if item.title or item.description %}
+							<div class="g-info-container-style2 uk-overlay-panel uk-overlay-background uk-overlay-bottom uk-overlay-slide-bottom">
+								{% if item.title %}
+									{{ title }}
+								{% endif %}
+
+								{% if item.date %}
+									{{ date }}
+								{% endif %}
+
+								{% if item.description %}
+									{{ description }}
+								{% endif %}
+
+								{% if item.specialtext or item.bottomlink %}
+									<div class="g-bottom-info clearfix{% if item.specialtext == false %} no-special{% endif %}{% if item.bottomlink == false %} no-link{% endif %}">
+										{% if item.specialtext %}
+											{{ specialtext }}
+										{% endif %}
+
+										{% if item.bottomlink %}
+											{{ bottomlink }}
+										{% endif %}
+									</div>
+								{% endif %}
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			{% endset %}
+
+			{% set style3 %}
+				<div class="g-portfolio-item-container{% if item.class %} {{ item.class|e }}{% endif %}" {{ filtertags }}>
+					<div class="g-portfolio-item"{% if item.extra %} {{ attr_extra_item|raw }}{% endif %}>
+						{% if item.image %}
+							{{ image }}
+						{% endif %}
+
+						{% if item.title or item.description %}
+							<div class="g-info-container">
+								{% if item.title %}
+									{{ title }}
+								{% endif %}
+
+								{% if item.date %}
+									{{ date }}
+								{% endif %}
+
+								{% if item.description %}
+									{{ description }}
+								{% endif %}
+
+								{% if item.specialtext or item.bottomlink %}
+									<div class="g-bottom-info clearfix{% if item.specialtext == false %} no-special{% endif %}{% if item.bottomlink == false %} no-link{% endif %}">
+										{% if item.specialtext %}
+											{{ specialtext }}
+										{% endif %}
+
+										{% if item.bottomlink %}
+											{{ bottomlink }}
+										{% endif %}
+									</div>
+								{% endif %}
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			{% endset %}
+
+			{% set style4 %}
+				<div class="g-portfolio-item-container{% if item.class %} {{ item.class|e }}{% endif %}" {{ filtertags }}>
+					<div class="g-portfolio-item uk-overlay"{% if item.extra %} {{ attr_extra_item|raw }}{% endif %}>
+						{% if item.image %}
+							{{ image }}
+						{% endif %}
+
+						{% if item.title or item.description %}
+							<div class="g-info-container-style2 uk-overlay-panel uk-overlay-background uk-overlay-bottom">
+								{% if item.title %}
+									{{ title }}
+								{% endif %}
+
+								{% if item.date %}
+									{{ date }}
+								{% endif %}
+
+								{% if item.description %}
+									{{ description }}
+								{% endif %}
+
+								{% if item.specialtext or item.bottomlink %}
+									<div class="g-bottom-info clearfix{% if item.specialtext == false %} no-special{% endif %}{% if item.bottomlink == false %} no-link{% endif %}">
+										{% if item.specialtext %}
+											{{ specialtext }}
+										{% endif %}
+
+										{% if item.bottomlink %}
+											{{ bottomlink }}
+										{% endif %}
+									</div>
+								{% endif %}
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			{% endset %}
+
+			{% if particle.style|default("style1") == "style1" %}{{ style1 }}{% endif %}
+			{% if particle.style|default("style1") == "style2" %}{{ style2 }}{% endif %}
+			{% if particle.style|default("style1") == "style3" %}{{ style3 }}{% endif %}
+			{% if particle.style|default("style1") == "style4" %}{{ style4 }}{% endif %}
+
+		{% endfor %}
+	{% endfor %}
+{% endset %}
+
+{% block particle %}
+
+	<div class="g-portfolio {{ particle.style|default("style1")|e }}{% if particle.css.class %} {{ particle.css.class|e }}{% endif %}{% if particle.filters|default('disabled') != 'disabled' %} filters-enabled{% else %} filters-disabled{% endif %}{% if particle.gutter|default('enabled') == 'enabled' %} gutter-enabled{% else %} gutter-disabled{% endif %}" {% if particle.extra %}{{ attr_extra|raw }}{% endif %}>
+		{% if particle.mainheading or particle.introtext %}
+			{{ particleheading }}
+		{% endif %}
+
+		{% if particle.filters|default('disabled') == 'enabled' %}{{ portfolio_filter }}{% endif %}
+		{% if particle.filters|default('disabled') == 'enabled2' %}{{ portfolio_filter_s2 }}{% endif %}
+		{% if particle.filters|default('disabled') == 'enabled3' %}{{ portfolio_filter_s3 }}{% endif %}
+
+		<div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-{{ particle.columns|default('3')|e }}" data-uk-grid="{ {% if particle.gutter|default('enabled') == 'enabled' %}gutter: 30,{% endif %}{% if particle.filters|default('disabled') != 'disabled' %}controls: '#g-portfolio-filter_{{ filterid }}'{% endif %} }">
+			{{ portfolio_items }}
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascript_footer %}
+	{{ parent() }}
+	<script type="text/javascript">
+		(function($) {
+			$(document).ready(function() { 
+				$("[data-uk-filter]").on("click", function() {
+					function gridAfterFilter() {
+						$('[data-uk-grid]').trigger('display.uk.check');
+					}
+					setTimeout(gridAfterFilter, 450);
+				})
+			});
+
+			$(window).load(function() {
+				var portfolioConteiner = $(".g-portfolio.style3 .info-container-top .g-info-container");
+				var portfolioConteinerHeight = $(portfolioConteiner).outerHeight();
+
+				$(portfolioConteiner).css({
+					'top' : -(portfolioConteinerHeight - 1) + 'px'
+				});
+			});
+		})(jQuery);
+	</script>
+{% endblock %}

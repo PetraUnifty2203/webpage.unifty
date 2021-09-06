@@ -1,0 +1,192 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% set attr_extra = '' %}
+{% if particle.extra %}
+	{% for attributes in particle.extra %}
+		{% for key, value in attributes %}
+			{% set attr_extra = attr_extra ~ ' ' ~ key|e ~ '="' ~ value|e('html_attr') ~ '"' %}
+		{% endfor %}
+	{% endfor %}
+{% endif %}
+
+{% set particleheading %}
+    <div class="g-particle-intro">
+        {% if particle.mainheading %}
+            <h3 class="g-title g-main-title">{{ particle.mainheading|raw }}</h3>
+            <div class="g-title-separator {% if particle.introtext == false %}no-intro-text{% endif %}"></div>
+        {% endif %} 
+        {% if particle.introtext %}<p class="g-introtext">{{ particle.introtext|raw }}</p>{% endif %}
+    </div>
+{% endset %}
+
+{% set timelineitems %}
+	{% for item in particle.items %}
+		{% set attr_extra_item = '' %}
+		{% for extra in item.extra %}
+			{% set attr_extra_item = attr_extra_item ~ ' ' ~ extra|keys|first|e ~ '="' ~ extra|values|first|e('html_attr') ~ '"' %}
+		{% endfor %}
+
+		{% set icon %}
+			{% if particle.style|default("style1") == "style1" %}
+				<span style="background-color: {{ item.iconbackground|e }}; color: {{ item.icontextcolor|e }}" class="g-timeline-icon {{ item.icon|e }}"></span>
+			{% endif %}
+
+			{% if particle.style|default("style1") == "style2" %}
+				<div class="g-timeline-icon-container" style="background-color: {{ item.iconbackground|e }}; color: {{ item.icontextcolor|e }}">
+					<span class="g-timeline-icon {{ item.icon|e }}"></span>
+				</div>
+			{% endif %}
+		{% endset %}
+
+		{% set year %}
+			<div class="g-timeline-year">
+				{{- item.year|raw -}}
+			</div>
+		{% endset %}
+
+		{% set title %}
+			<h4 class="g-timeline-title">
+				{%- if item.link -%}
+					<a target="{{ item.target|default('_parent')|e }}" href="{{ item.link|e }}">
+				{%- endif -%}
+					{{- item.title|raw -}}
+				{%- if item.link -%}
+					</a>
+				{%- endif -%}
+			</h4>
+		{% endset %}
+
+		{% set description %}
+			<div class="g-timeline-description">
+				{{- item.description|raw -}}
+			</div>
+		{% endset %}
+
+		{% set button %}
+			<div class="g-timeline-button">
+				<a class="button" target="{{ item.target|default('_parent')|e }}" href="{{ item.link|e }}">
+					{{- item.buttontext|raw -}}
+				</a>
+			</div>
+		{% endset %}
+
+		{% set style1 %}
+			<div class="g-block g-timeline-item{% if item.class %} {{ item.class|e }}{% endif %}" {% if item.extra %}{{ attr_extra_item|raw }}{% endif %}>
+				<div class="g-content">
+					{% if item.icon %}
+						{{ icon }}
+					{% endif %}
+
+					{% if item.year %}
+						{{ year }}
+					{% endif %}
+
+					{% if item.title %}
+						{{ title }}
+					{% endif %}
+
+					{% if item.description %}
+						{{ description }}
+					{% endif %}
+
+					{% if item.buttontext %}
+						{{ button }}
+					{% endif %}
+				</div>
+			</div>
+		{% endset %}
+
+		{% set style2 %}
+			<div class="g-timeline-block{% if item.class %} {{ item.class|e }}{% endif %}" {% if item.extra %}{{ attr_extra_item|raw }}{% endif %}>
+				{% if item.icon %}
+					{{ icon }}
+				{% endif %}
+
+				{% if item.title or item.description %}
+					<div class="g-timeline-content">
+						{% if item.title %}
+							{{ title }}
+						{% endif %}
+
+						{% if item.description %}
+							{{ description }}
+						{% endif %}
+
+						{% if item.buttontext %}
+							{{ button }}
+						{% endif %}
+
+						{% if item.year %}
+							{{ year }}
+						{% endif %}
+					</div>
+				{% endif %}
+			</div>
+		{% endset %}
+
+		{% if particle.style|default("style1") == "style1" %}{{ style1 }}{% endif %}
+		{% if particle.style|default("style1") == "style2" %}{{ style2 }}{% endif %}
+
+	{% endfor %}
+{% endset %}
+
+{% block particle %}
+	<div class="g-timeline {{ particle.style|default("style1")|e }}{% if particle.css.class %} {{ particle.css.class|e }}{% endif %}" {% if particle.extra %}{{ attr_extra|raw }}{% endif %}>
+		{% if particle.mainheading or particle.introtext %}
+			{{ particleheading }}
+		{% endif %}
+
+		{% if particle.style|default("style1") == "style1" %}
+			<div class="g-content">
+				<div class="g-timeline-row"></div>
+			</div>
+
+			<div class="g-grid">
+				{{ timelineitems }}
+			</div>
+		{% endif %}
+
+		{% if particle.style|default("style1") == "style2" %}
+			<div id="g-timeline">
+				{{ timelineitems }}
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}
+
+{% block javascript_footer %}
+	{% if particle.style|default("style1") == "style2" and particle.animation|default("enabled") == "enabled" %}
+		{% do gantry.load('jquery') %}
+		{{ parent() }}
+		<script type="text/javascript">
+			(function($) {
+				$(document).ready(function() {
+					var timelineBlocks = $('.g-timeline-block'),
+						offset = 0.8;
+
+					//hide timeline blocks which are outside the viewport
+					hideBlocks(timelineBlocks, offset);
+
+					//on scolling, show/animate timeline blocks when enter the viewport
+					$(window).on('scroll', function(){
+						(!window.requestAnimationFrame) 
+							? setTimeout(function(){ showBlocks(timelineBlocks, offset); }, 100)
+							: window.requestAnimationFrame(function(){ showBlocks(timelineBlocks, offset); });
+					});
+
+					function hideBlocks(blocks, offset) {
+						blocks.each(function(){
+							( $(this).offset().top > $(window).scrollTop()+$(window).height()*offset ) && $(this).find('.g-timeline-icon-container, .g-timeline-content').addClass('is-hidden');
+						});
+					}
+
+					function showBlocks(blocks, offset) {
+						blocks.each(function(){
+							( $(this).offset().top <= $(window).scrollTop()+$(window).height()*offset && $(this).find('.g-timeline-icon-container').hasClass('is-hidden') ) && $(this).find('.g-timeline-icon-container, .g-timeline-content').removeClass('is-hidden').addClass('bounce-in');
+						});
+					}
+				});
+			})(jQuery);
+		</script>
+	{% endif %}
+{% endblock %}

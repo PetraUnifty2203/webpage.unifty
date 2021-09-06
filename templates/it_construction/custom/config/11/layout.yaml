@@ -1,0 +1,221 @@
+version: 2
+preset:
+  image: 'gantry-admin://images/layouts/default.png'
+  name: default
+  timestamp: 1517560458
+layout:
+  container-site:
+    drawer: {  }
+    top: {  }
+    /header/: {  }
+    navigation: {  }
+    breadcrumb: {  }
+    /fullwidth/: {  }
+    showcase: {  }
+    /intro/: {  }
+    feature: {  }
+    /subfeature/: {  }
+    utility: {  }
+    maintop: {  }
+    /system-messages/: {  }
+    /container-main/:
+      -
+        -
+          'sidebar 30': {  }
+        -
+          'mainbody 40': {  }
+        -
+          'aside 30': {  }
+    mainbottom: {  }
+    extension: {  }
+    /additional/: {  }
+    /prebottom/: {  }
+    bottom: {  }
+    /afterbottom/: {  }
+    /last/: {  }
+  container-footer:
+    footer: {  }
+    copyright: {  }
+  /to-top/: {  }
+  offcanvas: {  }
+structure:
+  drawer:
+    type: section
+    inherit:
+      outline: default
+      include:
+        - attributes
+        - block
+        - children
+  top:
+    type: section
+    inherit:
+      outline: default
+      include:
+        - attributes
+        - block
+        - children
+  header:
+    attributes:
+      boxed: '3'
+      class: g-absolute-header
+      variations: ''
+      extra:
+        -
+          data-uk-sticky: '{top:-700, animation: ''uk-animation-slide-top'', media: 768}'
+  navigation:
+    type: section
+    inherit:
+      outline: default
+      include:
+        - attributes
+        - block
+        - children
+  breadcrumb:
+    type: section
+    inherit:
+      outline: default
+      include:
+        - attributes
+        - block
+        - children
+  fullwidth:
+    type: section
+    attributes:
+      boxed: ''
+  showcase:
+    type: section
+    inherit:
+      outline: default
+      include:
+        - attributes
+        - block
+        - children
+  intro:
+    type: section
+    attributes:
+      boxed: ''
+  feature:
+    type: section
+    inherit:
+      outline: default
+      include:
+        - attributes
+        - block
+        - children
+  subfeature:
+    type: section
+    attributes:
+      boxed: ''
+  utility:
+    type: section
+    inherit:
+      outline: default
+      include:
+        - attributes
+        - block
+        - children
+  maintop:
+    type: section
+    inherit:
+      outline: default
+      include:
+        - attributes
+        - block
+        - children
+  system-messages:
+    type: section
+    attributes:
+      boxed: ''
+      class: ''
+      variations: ''
+  sidebar:
+    type: section
+    inherit:
+      outline: default
+      include:
+        - attributes
+        - block
+        - children
+    block:
+      fixed: '1'
+  mainbody:
+    type: section
+  aside:
+    attributes:
+      class: ''
+    block:
+      fixed: '1'
+  container-main:
+    attributes:
+      boxed: ''
+  mainbottom:
+    type: section
+    inherit:
+      outline: default
+      include:
+        - attributes
+        - block
+        - children
+  extension:
+    type: section
+    inherit:
+      outline: default
+      include:
+        - attributes
+        - block
+        - children
+  additional:
+    type: section
+    attributes:
+      boxed: ''
+  prebottom:
+    type: section
+    attributes:
+      boxed: ''
+  bottom:
+    type: section
+    inherit:
+      outline: default
+      include:
+        - attributes
+        - block
+        - children
+  afterbottom:
+    type: section
+    attributes:
+      boxed: ''
+  last:
+    type: section
+    attributes:
+      boxed: ''
+  footer:
+    inherit:
+      outline: default
+      include:
+        - attributes
+        - block
+        - children
+  copyright:
+    type: section
+    inherit:
+      outline: default
+      include:
+        - attributes
+        - block
+        - children
+  container-footer:
+    attributes:
+      class: fixed-footer
+      extra: {  }
+  to-top:
+    type: section
+    attributes:
+      boxed: ''
+  offcanvas:
+    inherit:
+      outline: default
+      include:
+        - attributes
+        - block
+        - children

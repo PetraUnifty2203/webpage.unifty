@@ -1,0 +1,242 @@
+// Set the variable defaults in case they are missing in the template
+$base-title-color: #4d4d4d !default;
+
+.g-our-team {
+	&:not(.gutter-disabled) {
+		margin-left: -($content-padding);
+		margin-right: -($content-padding);
+		> .g-grid {
+			margin-bottom: ($content-padding*2);
+			&:last-child {
+				margin-bottom: 0;
+				> .g-block {
+					&:last-child {
+						.g-our-team-item {
+							@include breakpoint(mobile-only) {
+								margin-bottom: 0 !important;
+							}
+						}
+					}
+				}
+			}
+			@include breakpoint(mobile-only) {
+				margin-bottom: 0;
+			}
+		}
+		.g-our-team-item {
+			@include breakpoint(mobile-only) {
+				margin-bottom: ($content-padding*2) !important;
+			}
+		}
+	}
+	.size-33 {
+		@include flex(0 33.3333%);
+		width: 33.3333%;
+		@include breakpoint(mobile-only) {
+			@include flex(0 100%);
+			width: 100%;
+		}
+	}
+
+	.size-16 {
+		@include flex(0 16.6666%);
+		width: 16.6666%;
+		@include breakpoint(mobile-only) {
+			@include flex(0 100%);
+			width: 100%;
+		}
+	}
+}
+
+.g-our-team, .g-our-team-slider, .g-our-team-slideset {
+	text-align: center;
+	&.gutter-disabled {
+		.g-our-team-item {
+			border: none;
+		}
+		.uk-slideset {
+			margin-left: 0;
+			&.uk-grid {
+				> * {
+					padding-left: 0;
+				}
+			}
+		}
+	}
+	.g-content {
+		margin: 0;
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+	.g-our-team-item {
+		border: 1px solid $base-border-color;
+		width: 100%;
+		@include breakpoint(mobile-only) {
+			margin-bottom: ($content-margin + $content-padding)*2;
+			width: 100%;
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+	.g-our-team-image {
+		position: relative;
+		overflow: hidden;
+		.g-our-team-social {
+			&.uk-overlay-panel {
+				padding: 0;
+				a {
+					width: 100%;
+					display: block;
+					padding: 10px;
+					border: 1px solid rgba(255, 255, 255, 0.2);
+					border-right: none;
+					@include breakpoint(tablet-range) {
+						padding: 10px 5px;
+					}
+					@include transition(all, 0.2s);
+					&:hover {
+						background: $accent-color-1;
+					}
+				}
+			}
+			.g-block {
+				@include breakpoint(mobile-only) {
+					@include flex(1);
+				}
+			}
+		}
+		img {
+			width: 100%;
+		}
+	}
+	.g-info-container {
+		padding: 20px;
+		background: #ffffff;
+	}
+	p {
+		margin: 0;
+	}
+	.g-our-team-name {
+		margin: 0;
+		a {
+			color: $base-title-color;
+			&:hover {
+				color: $accent-color-1;
+			}
+		}
+	}
+	.g-our-team-position {
+		margin-top: 0;
+		font-size: 90%;
+		&.g-desc-enabled {
+			margin-bottom: 20px;
+		}
+	}
+	.g-our-team-desc {
+		margin-top: 0.4rem;
+	}
+	&.style2 {
+		.g-our-team-social {
+			margin-top: 20px;
+			a {
+				color: lighten($base-title-color, 15%);
+				margin-right: 15px;
+				@include breakpoint(tablet-range) {
+					margin-right: 8px;
+				}
+				&:last-child {
+					margin-right: 0;
+				}
+				&:hover {
+					color: $accent-color-1;
+				}
+			}
+		}
+	}
+	&.uk-text-left {
+		&.style1 {
+			.g-our-team-social {
+				text-align: center !important;
+			}
+		}
+	}
+	&.style3 {
+		.g-our-team-image {
+			padding-bottom: 100px;
+		}
+		.g-info-container {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			top: auto;
+			z-index: 1;
+			padding: 23px 30px;
+			height: 100px;
+			@include transition(all 0.2s);
+			.g-our-team-position {
+				margin: 5px 0 0;
+			}
+		}
+		.g-hover-container {
+			opacity: 0;
+			position: absolute;
+			background-color: #111111;
+			color: #ffffff;
+			top: 100px;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			padding: 30px;
+			@include transition(all 0.2s);
+			> * {
+				opacity: 0;
+				@include transition(all 0.2s);
+			}
+			.g-our-team-desc {
+				font-size: 90%;
+			}
+			.g-our-team-social {
+				margin-top: 25px;
+				font-size: 18px;
+				a {
+					margin-right: 15px;
+					@include breakpoint(tablet-range) {
+						margin-right: 8px;
+					}
+					&:last-child {
+						margin-right: 0;
+					}
+				}
+			}
+		}
+		.g-our-team-item {
+			position: relative;
+			&:hover {
+				.g-hover-container {
+					opacity: 1;
+					> * {
+						@include transition-delay(0.3s);
+						opacity: 1;
+					}
+				}
+				.g-info-container {
+					bottom: 100%;
+					margin-bottom: -100px;
+					background: $accent-color-1;
+					color: #ffffff;
+					.g-our-team-name {
+						color: #ffffff !important;
+						a {
+							color: #ffffff !important;
+							&:hover {
+								text-decoration: underline;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

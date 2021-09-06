@@ -1,0 +1,16 @@
+enabled: '1'
+mainheading: ''
+introtext: ''
+theme: carousel
+style: style1
+start: '3'
+loopslider: disable
+autoplay: disable
+autoplayInterval: '7000'
+navigation: arrows
+lightbox: enable
+dateposition: top
+css:
+  class: ''
+extra: {  }
+items: {  }

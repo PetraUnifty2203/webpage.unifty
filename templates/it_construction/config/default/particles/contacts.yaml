@@ -1,0 +1,8 @@
+enabled: '1'
+style: style1
+layout: vertical
+equal: '0'
+css:
+  class: ''
+extra: {  }
+items: {  }

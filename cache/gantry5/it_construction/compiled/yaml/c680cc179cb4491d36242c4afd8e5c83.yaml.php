@@ -1,0 +1,264 @@
+<?php
+return [
+    '@class' => 'Gantry\\Component\\File\\CompiledYamlFile',
+    'filename' => 'C:\\xampp\\htdocs\\Jommla3/templates/it_construction/particles/hero-slider.yaml',
+    'modified' => 1629828473,
+    'data' => [
+        'name' => 'Hero Slider',
+        'description' => 'Display a Hero Slider.',
+        'type' => 'particle',
+        'configuration' => [
+            'caching' => [
+                'type' => 'static'
+            ]
+        ],
+        'form' => [
+            'fields' => [
+                'enabled' => [
+                    'type' => 'input.checkbox',
+                    'label' => 'Enabled',
+                    'description' => 'Globally enable Hero Slider particles.',
+                    'default' => true
+                ],
+                '_note' => [
+                    'type' => 'separator.note',
+                    'class' => 'alert alert-info',
+                    'content' => '<strong>This Particle requires the "UIkit for Gantry5" Atom to be loaded.</strong>'
+                ],
+                'height' => [
+                    'type' => 'input.text',
+                    'label' => 'Height',
+                    'description' => 'Set the Hero Slider height in pixels. Default is \'550px\'.',
+                    'default' => '550px'
+                ],
+                'textcolor' => [
+                    'type' => 'input.colorpicker',
+                    'description' => 'Select the Hero Slider text color.',
+                    'label' => 'Text Color',
+                    'default' => '#ffffff'
+                ],
+                'bgcolor' => [
+                    'type' => 'input.colorpicker',
+                    'description' => 'Select the Hero Slider background color.',
+                    'label' => 'Background Color',
+                    'default' => '#2e373c'
+                ],
+                'bgimage' => [
+                    'type' => 'input.imagepicker',
+                    'label' => 'Background Image',
+                    'description' => 'Select a background image for the Hero Slider.'
+                ],
+                'bgrepeat' => [
+                    'type' => 'select.select',
+                    'label' => 'Background Repeat',
+                    'description' => 'Select the \'background-repeat\' CSS property.',
+                    'placeholder' => 'Select...',
+                    'default' => 'no-repeat',
+                    'options' => [
+                        'no-repeat' => 'No Repeat',
+                        'repeat' => 'Repeat',
+                        'repeat-x' => 'Repeat-x',
+                        'repeat-y' => 'Repeat-y'
+                    ]
+                ],
+                'bgsize' => [
+                    'type' => 'select.select',
+                    'label' => 'Background Size',
+                    'description' => 'Select the \'background-size\' CSS property.',
+                    'placeholder' => 'Select...',
+                    'default' => 'cover',
+                    'options' => [
+                        'auto' => 'Auto',
+                        '100%' => '100%',
+                        'cover' => 'Cover'
+                    ]
+                ],
+                'bgattachment' => [
+                    'type' => 'select.select',
+                    'label' => 'Background Attach.',
+                    'description' => 'Select the \'background-attachment\' CSS property.',
+                    'placeholder' => 'Select...',
+                    'default' => 'scroll',
+                    'options' => [
+                        'scroll' => 'Scroll',
+                        'fixed' => 'Fixed'
+                    ]
+                ],
+                'effect' => [
+                    'type' => 'select.select',
+                    'label' => 'Effect',
+                    'description' => 'Select the animated effect that you want to be applied.',
+                    'placeholder' => 'Select...',
+                    'default' => 'simple',
+                    'options' => [
+                        'effect1' => 'Effect 1',
+                        'effect2' => 'Effect 2',
+                        'effect3' => 'Effect 3',
+                        'none' => 'None'
+                    ]
+                ],
+                'behaviour' => [
+                    'type' => 'select.select',
+                    'label' => 'Behaviour',
+                    'description' => 'Select the particle behaviour - slider or slideset.',
+                    'placeholder' => 'Select...',
+                    'default' => 'slideset',
+                    'options' => [
+                        'slider' => 'Slider',
+                        'slideset' => 'Slideset'
+                    ]
+                ],
+                'autoplay' => [
+                    'type' => 'select.select',
+                    'label' => 'Autoplay',
+                    'description' => 'Select whether or not the Slider and Slideset items should switch automatically',
+                    'placeholder' => 'Select...',
+                    'default' => 'enable',
+                    'options' => [
+                        'enable' => 'Enabled',
+                        'disable' => 'Disabled'
+                    ]
+                ],
+                'autoplayInterval' => [
+                    'type' => 'input.text',
+                    'label' => 'Autoplay Interval',
+                    'description' => 'Set the timespan in miliseconds between switching the Slider and Slideset items.',
+                    'default' => 7000
+                ],
+                'navigation' => [
+                    'type' => 'select.select',
+                    'label' => 'Navigation',
+                    'description' => 'Select the navigation type (\'Dots\' work with Slideset ONLY).',
+                    'placeholder' => 'Select...',
+                    'default' => 'arrows',
+                    'options' => [
+                        'arrows' => 'Arrows',
+                        'dots' => 'Dots',
+                        'both' => 'Both',
+                        'none' => 'None'
+                    ]
+                ],
+                'animation' => [
+                    'type' => 'select.select',
+                    'label' => 'Animation',
+                    'description' => 'Select the animation type (Slideset ONLY).',
+                    'placeholder' => 'Select...',
+                    'default' => 'fade',
+                    'options' => [
+                        'fade' => 'Fade',
+                        'scale' => 'Scale',
+                        'slide-horizontal' => 'Slide-horizontal',
+                        'slide-vertical' => 'Slide-vertical',
+                        'slide-top' => 'Slide-top',
+                        'slide-bottom' => 'Slide-bottom'
+                    ]
+                ],
+                'duration' => [
+                    'type' => 'input.text',
+                    'label' => 'Animation Duration',
+                    'description' => 'Set the animation duration in miliseconds (Slideset ONLY).',
+                    'default' => 200
+                ],
+                'css.class' => [
+                    'type' => 'input.selectize',
+                    'label' => 'CSS Classes',
+                    'description' => 'CSS class name for the particle.',
+                    'default' => NULL
+                ],
+                'extra' => [
+                    'type' => 'collection.keyvalue',
+                    'label' => 'Tag Attributes',
+                    'description' => 'Extra Tag attributes.',
+                    'key_placeholder' => 'Key (data-*, style, ...)',
+                    'value_placeholder' => 'Value',
+                    'exclude' => [
+                        0 => 'id',
+                        1 => 'class'
+                    ]
+                ],
+                'items' => [
+                    'type' => 'collection.list',
+                    'array' => true,
+                    'label' => 'Hero Slider Items',
+                    'description' => 'Create each Hero Slider item to display.',
+                    'value' => 'name',
+                    'ajax' => true,
+                    'fields' => [
+                        '.title' => [
+                            'type' => 'textarea.textarea',
+                            'label' => 'Title',
+                            'description' => 'Type in the title.'
+                        ],
+                        '.description' => [
+                            'type' => 'textarea.textarea',
+                            'label' => 'Description',
+                            'description' => 'Type in the description. You can use pure HTML to accomplish whatever layout you want (add columns, images, etc.)'
+                        ],
+                        '.buttons' => [
+                            'type' => 'collection.list',
+                            'array' => true,
+                            'label' => 'Buttons',
+                            'description' => 'Create each button to display.',
+                            'value' => 'name',
+                            'ajax' => true,
+                            'fields' => [
+                                '.text' => [
+                                    'type' => 'input.text',
+                                    'label' => 'Button Text',
+                                    'description' => 'Type in the button text.'
+                                ],
+                                '.buttonicon' => [
+                                    'type' => 'input.icon',
+                                    'label' => 'Button Icon',
+                                    'description' => 'Select an icon for the button.'
+                                ],
+                                '.buttonstyle' => [
+                                    'type' => 'select.select',
+                                    'label' => 'Button Style',
+                                    'description' => 'Select the button style.',
+                                    'placeholder' => 'Select...',
+                                    'default' => 'empty-light',
+                                    'options' => [
+                                        'standard' => 'Standard',
+                                        'empty' => 'Empty'
+                                    ]
+                                ],
+                                '.link' => [
+                                    'type' => 'input.text',
+                                    'label' => 'Button Link',
+                                    'description' => 'Type in the URL.'
+                                ],
+                                '.target' => [
+                                    'type' => 'select.select',
+                                    'label' => 'Target',
+                                    'description' => 'Target browser window when item is clicked.',
+                                    'placeholder' => 'Select...',
+                                    'default' => '_parent',
+                                    'options' => [
+                                        '_parent' => 'Self',
+                                        '_blank' => 'New Window'
+                                    ]
+                                ]
+                            ]
+                        ],
+                        '.class' => [
+                            'type' => 'input.selectize',
+                            'label' => 'CSS Class'
+                        ],
+                        '.extra' => [
+                            'type' => 'collection.keyvalue',
+                            'label' => 'Tag Attributes',
+                            'description' => 'Extra Tag attributes.',
+                            'key_placeholder' => 'Key (data-*, style, ...)',
+                            'value_placeholder' => 'Value',
+                            'exclude' => [
+                                0 => 'id',
+                                1 => 'class'
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ]
+];

@@ -1,0 +1,30 @@
+version: 2
+preset:
+  image: 'gantry-admin://images/layouts/body-only.png'
+  name: _body_only
+  timestamp: 1629828473
+layout:
+  /main/:
+    -
+      - 'system-messages-4372 50'
+      - 'hero-slider-4314 50'
+    -
+      - 'system-content-4124 50'
+      - 'gallery-6800 50'
+    -
+      - 'logo-6480 33.3'
+      - 'logo-4071 33.3'
+      - 'logo-1364 33.3'
+structure:
+  main:
+    attributes:
+      boxed: ''
+content:
+  hero-slider-4314:
+    title: 'Hero Slider'
+  logo-6480:
+    title: 'Logo / Image'
+  logo-4071:
+    title: 'Logo / Image'
+  logo-1364:
+    title: 'Logo / Image'

@@ -1,0 +1,344 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% set sliderid = random() %}
+
+{% block stylesheets %}
+	{% if particle.enabled %}
+		{{ parent() }}
+		<style type="text/css">
+			.g-hero-inline_{{ sliderid }} {
+				height: {{ particle.height|default('550px')|e }};
+				background-color: {{ particle.bgcolor|default("#2e373c") }};
+				color: {{ particle.textcolor|default("#ffffff") }};
+			}
+
+			.g-hero-inline_{{ sliderid }} h1, .g-hero-inline_{{ sliderid }} h2, .g-hero-inline_{{ sliderid }} h3, .g-hero-inline_{{ sliderid }} h4, .g-hero-inline_{{ sliderid }} h5 {
+				color: {{ particle.textcolor|default("#ffffff") }} !important;
+			}
+
+			.g-hero-inline_{{ sliderid }} .uk-dotnav > * > * {
+				border: 1px solid {{ particle.textcolor|default("#ffffff") }};
+			}
+
+			.g-hero-inline_{{ sliderid }} .uk-dotnav > .uk-active > * {
+				background: {{ particle.textcolor|default("#ffffff") }};
+			}
+
+			.g-hero-inline_{{ sliderid }} .g-hero-buttons .button.empty {
+				border-color: {{ particle.textcolor|default("#ffffff") }};
+				color: {{ particle.textcolor|default("#ffffff") }};
+			}
+
+			{% if particle.bgimage %}
+				.g-hero-inline_{{ sliderid }} {
+					background-image: url({{ url(particle.bgimage) }});
+					background-repeat: {{ particle.bgrepeat|default('no-repeat')|e }};
+					background-size: {{ particle.bgsize|default('cover')|e }};
+					background-attachment: {{ particle.bgattachment|default('scroll')|e }}; 
+				}
+			{% endif %}
+		</style>
+	{% endif %}
+{% endblock %}
+
+{% set heroslideritem %}
+	{% for item in particle.items %}
+		{% set attr_extra_item = '' %}
+		{% for extra in item.extra %}
+			{% set attr_extra_item = attr_extra_item ~ ' ' ~ extra|keys|first|e ~ '="' ~ extra|values|first|e('html_attr') ~ '"' %}
+		{% endfor %}
+
+		<li class="g-hero-slider-item{% if item.class %} {{ item.class|e }}{% endif %}" {% if item.extra %}{{ attr_extra_item|raw }}{% endif %}>
+			<div class="g-hero-slider-item-container">
+				{% if item.title %}
+					<h1 class="g-hero-title">
+						{{- item.title|raw -}}
+					</h1>
+				{% endif %}
+
+				{% if item.description %}
+					<div class="g-hero-desc">
+						{{- item.description|raw -}}
+					</div>
+				{% endif %}
+
+				{% if item.buttons %}
+					<div class="g-hero-buttons">
+						{% for button in item.buttons %}
+							<a class="button {{ button.buttonstyle|default('empty-light')|e }}" target="{{ button.target|default('_parent')|e }}" href="{{ button.link|e }}">
+								{%- if button.buttonicon -%}<span class="{{ button.buttonicon|e }}"></span>{%- endif -%}{{- button.text|raw -}}
+							</a>
+						{% endfor %}	
+					</div>
+				{% endif %}
+			</div>
+		</li>
+
+	{% endfor %}
+{% endset %}
+
+{% set effectid = random() %}
+
+{% block particle %}
+	{% if particle.behaviour|default('slideset') == 'slider' %}
+		<div {% if particle.effect|default('effect1') != 'none' %}id="particles-js_{{ effectid }}"{% endif %} class="g-hero-slider g-hero-inline_{{ sliderid }}{% if particle.css.class %} {{ particle.css.class|e }}{% endif %}" {% if particle.extra %}{{ attr_extra|raw }}{% endif %}>
+			<div class="uk-slidenav-position" data-uk-slider{% if particle.autoplay|default("enable") == "enable" %}="{autoplay:true, autoplayInterval: '{{ particle.autoplayInterval|default(7000)|e}}'}"{% endif %}>
+				<div class="uk-slider-container">
+					<ul class="uk-slider uk-grid uk-grid-width-medium-1-1">
+						{{ heroslideritem }}
+					</ul>
+				</div>
+				{% if (particle.navigation|default('arrows') == 'arrows') or (particle.navigation|default('arrows') == 'both') %}
+					<a href="" class="uk-slidenav uk-slidenav-previous" data-uk-slider-item="previous" aria-label="{{'Previous'|trans_key('IT_ACCESS_PREVIOUS')}}"></a>
+					<a href="" class="uk-slidenav uk-slidenav-next" data-uk-slider-item="next" aria-label="{{'Next'|trans_key('IT_ACCESS_NEXT')}}"></a>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+	{% if particle.behaviour|default('slideset') == 'slideset' %}
+		<div {% if particle.effect|default('effect1') != 'none' %}id="particles-js_{{ effectid }}"{% endif %} class="g-hero-slider g-hero-inline_{{ sliderid }}{% if particle.css.class %} {{ particle.css.class|e }}{% endif %}" {% if particle.extra %}{{ attr_extra|raw }}{% endif %}>
+			<div class="uk-slidenav-position" data-uk-slideset="{small: 1, medium: 1, large: 1, duration: {{ particle.duration|default(200)|e}}, {% if particle.autoplay|default("enable") == "enable" %}autoplay: 'true', autoplayInterval: '{{ particle.autoplayInterval|default(7000)|e}}',{% endif %} animation: '{{ particle.animation|default('fade')|e}}'}">
+				<ul class="uk-slideset uk-grid">
+					{{ heroslideritem }}
+				</ul>
+				{% if (particle.navigation|default('arrows') == 'arrows') or (particle.navigation|default('arrows') == 'both') %}
+					<a href="" class="uk-slidenav uk-slidenav-previous" data-uk-slideset-item="previous" aria-label="{{'Previous'|trans_key('IT_ACCESS_PREVIOUS')}}"></a>
+					<a href="" class="uk-slidenav uk-slidenav-next" data-uk-slideset-item="next" aria-label="{{'Next'|trans_key('IT_ACCESS_NEXT')}}"></a>
+				{% endif %}
+				{% if (particle.navigation|default('arrows') == 'dots') or (particle.navigation|default('arrows') == 'both') %}
+					<ul class="uk-slideset-nav uk-dotnav uk-flex-center">
+	    			{% set counter = 0 %}
+	    			{% for item in particle.items %}
+	    				<li data-uk-slideset-item="{{ counter }}"><a href="" aria-label="{{'Item'|trans_key('IT_ACCESS_ITEM')}} {{ counter }}"></a></li>
+	    				{% set counter = counter + 1 %}
+	    			{% endfor %}
+					</ul>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}
+
+{% block javascript_footer %}
+	{{ parent() }}
+	{% if particle.effect|default('effect1') != 'none' %}
+		<script type="text/javascript" src="{{ url('gantry-theme://js/particles.min.js') }}"></script>
+	{% endif %}
+
+	{% if particle.effect|default('effect1') == 'effect1' %}
+		<script type="text/javascript">
+			particlesJS('particles-js_{{ effectid }}',
+			  
+			  {
+			    "particles": {
+			      "number": {
+			        "value": 100,
+			        "density": {
+			          "enable": true,
+			          "value_area": 800
+			        }
+			      },
+			      "color": {
+			        "value": "#ffffff"
+			      },
+			      "shape": {
+			        "type": "circle"
+			      },
+			      "opacity": {
+			        "value": 0.5,
+			        "random": false,
+			        "anim": {
+			          "enable": false,
+			          "speed": 1,
+			          "opacity_min": 0.1,
+			          "sync": false
+			        }
+			      },
+			      "size": {
+			        "value": 3,
+			        "random": true,
+			        "anim": {
+			          "enable": false,
+			          "speed": 40,
+			          "size_min": 0.1,
+			          "sync": false
+			        }
+			      },
+			      "line_linked": {
+			        "enable": true,
+			        "distance": 150,
+			        "color": "#ffffff",
+			        "opacity": 0.4,
+			        "width": 1
+			      },
+			      "move": {
+			        "enable": true,
+			        "speed": 3,
+			        "direction": "none",
+			        "random": false,
+			        "straight": false,
+			        "out_mode": "out",
+			        "attract": {
+			          "enable": false,
+			          "rotateX": 600,
+			          "rotateY": 1200
+			        }
+			      }
+			    },
+			    "interactivity": {
+			      "detect_on": "canvas",
+			      "events": {
+			        "resize": true
+			      },
+			    },
+			    "retina_detect": true
+			  }
+			);
+		</script>
+	{% endif %}
+
+	{% if particle.effect|default('effect1') == 'effect2' %}
+		<script type="text/javascript">
+			particlesJS('particles-js_{{ effectid }}',
+			  
+			  {
+			    "particles": {
+			      "number": {
+			        "value": 10,
+			        "density": {
+			          "enable": true,
+			          "value_area": 800
+			        }
+			      },
+			      "color": {
+			        "value": "{{ particle.textcolor|default("#ffffff") }}"
+			      },
+			      "shape": {
+			        "type": "polygon",
+			        "polygon": {"nb_sides":6}
+			      },
+			      "opacity": {
+			        "value": 0.03,
+			        "random": true,
+			        "anim": {
+			          "enable": false,
+			          "speed": 1,
+			          "opacity_min": 0.1,
+			          "sync": false
+			        }
+			      },
+			      "size": {
+			        "value": 160,
+			        "random": true,
+			        "anim": {
+			          "enable": false,
+			          "speed": 10,
+			          "size_min": 40,
+			          "sync": false
+			        }
+			      },
+			      "line_linked": {
+			        "enable": false,
+			        "distance": 200,
+			        "color": "#ffffff",
+			        "opacity": 0.4,
+			        "width": 1
+			      },
+			      "move": {
+			        "enable": true,
+			        "speed": 8,
+			        "direction": "none",
+			        "random": false,
+			        "straight": false,
+			        "out_mode": "out",
+			        "attract": {
+			          "enable": false,
+			          "rotateX": 600,
+			          "rotateY": 1200
+			        }
+			      }
+			    },
+			    "interactivity": {
+			      "detect_on": "canvas",
+			      "events": {
+			        "resize": true
+			      },
+			    },
+			    "retina_detect": true
+			  }
+			);
+		</script>
+	{% endif %}
+
+	{% if particle.effect|default('effect1') == 'effect3' %}
+		<script type="text/javascript">
+			particlesJS('particles-js_{{ effectid }}',
+			  
+			  {
+			    "particles": {
+			      "number": {
+			        "value": 300,
+			        "density": {
+			          "enable": true,
+			          "value_area": 800
+			        }
+			      },
+			      "color": {
+			        "value": "#ffffff"
+			      },
+			      "shape": {
+			        "type": "circle",
+			      },
+			      "opacity": {
+			        "value": 0.4,
+			        "random": true,
+			        "anim": {
+			          "enable": false,
+			          "speed": 1,
+			          "opacity_min": 0.1,
+			          "sync": false
+			        }
+			      },
+			      "size": {
+			        "value": 10,
+			        "random": true,
+			        "anim": {
+			          "enable": false,
+			          "speed": 40,
+			          "size_min": 0.1,
+			          "sync": false
+			        }
+			      },
+			      "line_linked": {
+			        "enable": false,
+			        "distance": 500,
+			        "color": "#ffffff",
+			        "opacity": 0.4,
+			        "width": 2
+			      },
+			      "move": {
+			        "enable": true,
+			        "speed": 1,
+			        "direction": "bottom",
+			        "random": false,
+			        "straight": false,
+			        "out_mode": "out",
+			        "attract": {
+			          "enable": false,
+			          "rotateX": 600,
+			          "rotateY": 1200
+			        }
+			      }
+			    },
+			    "interactivity": {
+			      "detect_on": "canvas",
+			      "events": {
+			        "resize": true
+			      },
+			    },
+			    "retina_detect": true
+			  }
+			);
+		</script>
+	{% endif %}
+{% endblock %}

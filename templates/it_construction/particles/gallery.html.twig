@@ -1,0 +1,182 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% set attr_extra = '' %}
+{% if particle.extra %}
+	{% for attributes in particle.extra %}
+		{% for key, value in attributes %}
+			{% set attr_extra = attr_extra ~ ' ' ~ key|e ~ '="' ~ value|e('html_attr') ~ '"' %}
+		{% endfor %}
+	{% endfor %}
+{% endif %}
+
+{% set particleheading %}
+	<div class="g-particle-intro">
+		{% if particle.mainheading %}
+			<h3 class="g-title g-main-title">{{ particle.mainheading|raw }}</h3>
+			<div class="g-title-separator {% if particle.introtext == false %}no-intro-text{% endif %}"></div>
+		{% endif %}	
+		{% if particle.introtext %}<p class="g-introtext">{{ particle.introtext|raw }}</p>{% endif %}
+	</div>
+{% endset %}
+
+{% set filterid = random() %}
+
+{% set gallery_filter %}
+	<ul id="g-gallery-filter_{{ filterid }}" class="g-gallery-filter uk-subnav uk-subnav-pill">
+		<li class="uk-active" data-uk-filter="all"><a href="">{{ particle.filterall|default('All')|raw }}</a></li>
+		{% if particle.filter1 %}<li data-uk-filter="filter1_{{ filterid }}"><a href="">{{ particle.filter1|e }}</a></li>{% endif %}
+		{% if particle.filter2 %}<li data-uk-filter="filter2_{{ filterid }}"><a href="">{{ particle.filter2|e }}</a></li>{% endif %}
+		{% if particle.filter3 %}<li data-uk-filter="filter3_{{ filterid }}"><a href="">{{ particle.filter3|e }}</a></li>{% endif %}
+		{% if particle.filter4 %}<li data-uk-filter="filter4_{{ filterid }}"><a href="">{{ particle.filter4|e }}</a></li>{% endif %}
+		{% if particle.filter5 %}<li data-uk-filter="filter5_{{ filterid }}"><a href="">{{ particle.filter5|e }}</a></li>{% endif %}
+	</ul>
+{% endset %}
+
+{% set gallery_filter_s2 %}
+	{% set all_items = 0 %}
+	{% set filter1 = 0 %}
+	{% set filter2 = 0 %}
+	{% set filter3 = 0 %}
+	{% set filter4 = 0 %}
+	{% set filter5 = 0 %}
+	{% for item in particle.items %}
+		{% set all_items = all_items + 1 %}
+		{% if item.filter1 %}{% set filter1 = filter1 + 1 %}{% endif %}
+		{% if item.filter2 %}{% set filter2 = filter2 + 1 %}{% endif %}
+		{% if item.filter3 %}{% set filter3 = filter3 + 1 %}{% endif %}
+		{% if item.filter4 %}{% set filter4 = filter4 + 1 %}{% endif %}
+		{% if item.filter5 %}{% set filter5 = filter5 + 1 %}{% endif %}
+	{% endfor %}
+	<ul id="g-gallery-filter_{{ filterid }}" class="g-gallery-filter uk-subnav uk-subnav-pill">
+		<li class="uk-active" data-uk-filter="all"><a href="">{{ particle.filterall|default('All')|raw }} ({{ all_items }})</a></li>
+		{% if particle.filter1 %}<li data-uk-filter="filter1_{{ filterid }}"><a href="">{{ particle.filter1|e }} ({{ filter1 }})</a></li>{% endif %}
+		{% if particle.filter2 %}<li data-uk-filter="filter2_{{ filterid }}"><a href="">{{ particle.filter2|e }} ({{ filter2 }})</a></li>{% endif %}
+		{% if particle.filter3 %}<li data-uk-filter="filter3_{{ filterid }}"><a href="">{{ particle.filter3|e }} ({{ filter3 }})</a></li>{% endif %}
+		{% if particle.filter4 %}<li data-uk-filter="filter4_{{ filterid }}"><a href="">{{ particle.filter4|e }} ({{ filter4 }})</a></li>{% endif %}
+		{% if particle.filter5 %}<li data-uk-filter="filter5_{{ filterid }}"><a href="">{{ particle.filter5|e }} ({{ filter5 }})</a></li>{% endif %}
+	</ul>
+{% endset %}
+
+{% set gallery_filter_s3 %}
+	{% set all_items = 0 %}
+	{% set filter1 = 0 %}
+	{% set filter2 = 0 %}
+	{% set filter3 = 0 %}
+	{% set filter4 = 0 %}
+	{% set filter5 = 0 %}
+	{% for item in particle.items %}
+		{% set all_items = all_items + 1 %}
+		{% if item.filter1 %}{% set filter1 = filter1 + 1 %}{% endif %}
+		{% if item.filter2 %}{% set filter2 = filter2 + 1 %}{% endif %}
+		{% if item.filter3 %}{% set filter3 = filter3 + 1 %}{% endif %}
+		{% if item.filter4 %}{% set filter4 = filter4 + 1 %}{% endif %}
+		{% if item.filter5 %}{% set filter5 = filter5 + 1 %}{% endif %}
+	{% endfor %}
+	<ul id="g-gallery-filter_{{ filterid }}" class="g-gallery-filter uk-subnav uk-subnav-pill">
+		<li class="uk-active" data-uk-filter="all"><a href="" data-uk-tooltip="{cls: 'g-gallery-tooltip'}" title="{{ all_items }}">{{ particle.filterall|default('All')|raw }}</a></li>
+		{% if particle.filter1 %}<li data-uk-filter="filter1_{{ filterid }}"><a href="" data-uk-tooltip="{cls: 'g-gallery-tooltip'}" title="{{ filter1 }}">{{ particle.filter1|e }}</a></li>{% endif %}
+		{% if particle.filter2 %}<li data-uk-filter="filter2_{{ filterid }}"><a href="" data-uk-tooltip="{cls: 'g-gallery-tooltip'}" title="{{ filter2 }}">{{ particle.filter2|e }}</a></li>{% endif %}
+		{% if particle.filter3 %}<li data-uk-filter="filter3_{{ filterid }}"><a href="" data-uk-tooltip="{cls: 'g-gallery-tooltip'}" title="{{ filter3 }}">{{ particle.filter3|e }}</a></li>{% endif %}
+		{% if particle.filter4 %}<li data-uk-filter="filter4_{{ filterid }}"><a href="" data-uk-tooltip="{cls: 'g-gallery-tooltip'}" title="{{ filter4 }}">{{ particle.filter4|e }}</a></li>{% endif %}
+		{% if particle.filter5 %}<li data-uk-filter="filter5_{{ filterid }}"><a href="" data-uk-tooltip="{cls: 'g-gallery-tooltip'}" title="{{ filter5 }}">{{ particle.filter5|e }}</a></li>{% endif %}
+	</ul>
+{% endset %}
+
+{% set gallery_items %}
+	{% set galleryid = random() %}
+	{% for row in particle.items|batch(particle.columns|default('3')|e) %}
+		{% for item in row %}
+			{% set attr_extra_item = '' %}
+			{% for extra in item.extra %}
+				{% set attr_extra_item = attr_extra_item ~ ' ' ~ extra|keys|first|e ~ '="' ~ extra|values|first|e('html_attr') ~ '"' %}
+			{% endfor %}
+
+			{% set indentifier = random() %}
+
+			{% set filtertags %}
+				{% if particle.filters|default('disabled') != 'disabled' %}
+					data-uk-filter="all{% if item.filter1 %}, filter1_{{ filterid }}{% endif %}{% if item.filter2 %}, filter2_{{ filterid }}{% endif %}{% if item.filter3 %}, filter3_{{ filterid }}{% endif %}{% if item.filter4 %}, filter4_{{ filterid }}{% endif %}{% if item.filter5 %}, filter5_{{ filterid }}{% endif %}"
+				{% endif %}
+			{% endset %}
+
+			{% set style1 %}
+				{% if item.image %}
+					<div class="g-gallery-item{% if item.class %} {{ item.class|e }}{% endif %}" {{ filtertags }} {% if item.extra %}{{ attr_extra_item|raw }}{% endif %}>
+						<a class="uk-overlay uk-overlay-hover" href="{{ url(item.image, false, 0) }}" {% if item.title %}title="{{ item.title|e }}"{% endif %} data-uk-lightbox="{group:'{{ galleryid }}'}">
+							<span class="uk-overlay-panel uk-overlay-background uk-overlay-icon uk-overlay-fade"></span>
+							<img alt="{{ item.alt|e }}" src="{{ url(item.image) }}" {{ item.image|imagesize|raw }}>
+						</a>
+					</div>
+				{% endif %}
+			{% endset %}
+
+			{% set style2 %}
+				{% if item.image %}
+					<div class="g-gallery-item{% if item.class %} {{ item.class|e }}{% endif %}" {{ filtertags }} {% if item.extra %}{{ attr_extra_item|raw }}{% endif %}>
+						<div class="uk-overlay uk-overlay-hover">
+							<div class="uk-overlay-panel uk-overlay-background uk-overlay-fade">
+								<div class="gallery-item-buttons">
+									<a class="magnifier-button" href="{{ url(item.image, false, 0) }}" {% if item.title %}title="{{ item.title|e }}"{% endif %} data-uk-lightbox="{group:'{{ galleryid }}'}" aria-label="{{'Enlarge Image'|trans_key('IT_ACCESS_ENLARGEIMG')}}">
+										<i class="fa fa-search"></i>
+									</a>
+
+									{% if item.description %}
+										<a class="info-button" data-uk-modal="{target:'#gallery-modal-info-{{ indentifier|e }}', center:true}" aria-label="{{'More Details'|trans_key('IT_ACCESS_MOREDETAILS')}}">
+											<i class="fa fa-info-circle"></i>
+										</a>
+									{% endif %}
+								</div>
+							</div>
+							<img alt="{{ item.alt|e }}" src="{{ url(item.image) }}" {{ item.image|imagesize|raw }}>
+						</div>
+						{% if item.description %}
+							<div id="gallery-modal-info-{{ indentifier|e }}" class="uk-modal">
+								<div class="uk-modal-dialog">
+									<a class="uk-modal-close uk-close" aria-label="{{'Close'|trans_key('IT_ACCESS_CLOSE')}}"></a>
+										{{ item.description|raw }}
+								</div>
+							</div>
+						{% endif %}
+					</div>
+				{% endif %}
+			{% endset %}
+
+			{% if particle.style|default("style1") == "style1" %}{{ style1 }}{% endif %}
+			{% if particle.style|default("style1") == "style2" %}{{ style2 }}{% endif %}
+
+		{% endfor %}
+	{% endfor %}
+{% endset %}
+
+{% block particle %}
+
+	<div class="g-gallery{% if particle.css.class %} {{ particle.css.class|e }}{% endif %} {{ particle.style|default("style1")|e }}{% if particle.filters|default('disabled') != 'disabled' %} filters-enabled{% else %} filters-disabled{% endif %}{% if particle.gutter|default('enabled') == 'enabled' %} gutter-enabled{% else %} gutter-disabled{% endif %}" {% if particle.extra %}{{ attr_extra|raw }}{% endif %}>
+		{% if particle.mainheading or particle.introtext %}
+			{{ particleheading }}
+		{% endif %}
+
+		{% if particle.filters|default('disabled') == 'enabled' %}{{ gallery_filter }}{% endif %}
+		{% if particle.filters|default('disabled') == 'enabled2' %}{{ gallery_filter_s2 }}{% endif %}
+		{% if particle.filters|default('disabled') == 'enabled3' %}{{ gallery_filter_s3 }}{% endif %}
+
+		<div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-{{ particle.columns|default('3')|e }}" data-uk-grid="{ {% if particle.gutter|default('enabled') == 'enabled' %}gutter: 30,{% endif %}{% if particle.filters|default('disabled') != 'disabled' %}controls: '#g-gallery-filter_{{ filterid }}'{% endif %} }">
+			{{ gallery_items }}
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascript_footer %}
+	{{ parent() }}
+	<script type="text/javascript">
+		(function($) {
+			$(document).ready(function() { 
+				$("[data-uk-filter]").on("click", function() {
+					function gridAfterFilter() {
+						$('[data-uk-grid]').trigger('display.uk.check');
+					}
+					setTimeout(gridAfterFilter, 450);
+				})
+			});
+		})(jQuery);
+	</script>
+{% endblock %}

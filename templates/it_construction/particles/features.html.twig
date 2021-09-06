@@ -1,0 +1,220 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% set attr_extra = '' %}
+{% if particle.extra %}
+	{% for attributes in particle.extra %}
+		{% for key, value in attributes %}
+			{% set attr_extra = attr_extra ~ ' ' ~ key|e ~ '="' ~ value|e('html_attr') ~ '"' %}
+		{% endfor %}
+	{% endfor %}
+{% endif %}
+
+{% set particleheading %}
+	<div class="g-particle-intro">
+		{% if particle.mainheading %}
+			<h3 class="g-title g-main-title">{{ particle.mainheading|raw }}</h3>
+			<div class="g-title-separator {% if particle.introtext == false %}no-intro-text{% endif %}"></div>
+		{% endif %}	
+		{% if particle.introtext %}<p class="g-introtext">{{ particle.introtext|raw }}</p>{% endif %}
+	</div>
+{% endset %}
+
+{% set mainclass %}
+	{% if particle.style|default("style1") == "style1" or particle.style|default('style1') == 'style6' or particle.style|default('style1') == 'style7' or particle.style|default('style1') == 'style8' %}
+		g-features-particle
+	{% else %}
+		g-features2-particle
+	{% endif %}
+{% endset %}
+
+{% set featuresitems %}
+	{% for row in particle.items|batch(particle.columns|default('3')|e) %}
+		<div class="g-grid">
+			{% for item in row %}
+				{% set attr_extra_item = '' %}
+				{% for extra in item.extra %}
+					{% set attr_extra_item = attr_extra_item ~ ' ' ~ extra|keys|first|e ~ '="' ~ extra|values|first|e('html_attr') ~ '"' %}
+				{% endfor %}
+
+				{% set subfeatures %}
+					<div class="g-features-particle-subs">
+						{% if item.subfeature1 %}<div class="g-subs-item">{{ item.subfeature1|raw }}</div>{% endif %}
+						{% if item.subfeature2 %}<div class="g-subs-item">{{ item.subfeature2|raw }}</div>{% endif %}
+						{% if item.subfeature3 %}<div class="g-subs-item">{{ item.subfeature3|raw }}</div>{% endif %}
+						{% if item.subfeature4 %}<div class="g-subs-item">{{ item.subfeature4|raw }}</div>{% endif %}
+						{% if item.subfeature5 %}<div class="g-subs-item">{{ item.subfeature5|raw }}</div>{% endif %}
+					</div>
+				{% endset %}
+
+				{% set button %}
+					<div class="g-features-particle-button">
+						<a class="button" target="{{ item.target|default('_parent')|e }}" href="{{ item.link|e }}">
+							{{- item.buttontext|raw -}}
+						</a>
+					</div>
+				{% endset %}
+
+				{% set style1 %}
+					<div class="g-block g-features-particle-item{% if item.class %} {{ item.class|e }}{% endif %}" {% if item.extra %}{{ attr_extra_item|raw }}{% endif %}>
+						{% if particle.style|default("style1") != "style8" %}
+						<div class="g-content">
+						{% endif %}
+
+							{% if particle.style|default("style1") == "style7" %}
+							<div class="g-features-particle-item-inner">
+							{% endif %}
+
+							{% if item.icon and item.image == false %}
+								<span class="g-features-particle-icon {{ item.icon|e }}">
+									<span class="g-circle-border"></span>
+								</span>
+							{% endif %}
+
+							{% if item.image %}
+								<div class="g-features-particle-image">
+									<img alt="{{ item.title|e }}" src="{{ url(item.image) }}" {{ particle.image|imagesize|raw }}>
+								</div>
+							{% endif %}
+
+							{% if item.title %}
+								<h4 class="g-features-particle-title">
+									{%- if item.link -%}
+										<a target="{{ item.target|default('_parent')|e }}" href="{{ item.link|e }}">
+									{%- endif -%}
+										{{- item.title|raw -}}
+									{%- if item.link -%}
+										</a>
+									{%- endif -%}
+								</h4>
+							{% endif %}
+
+							{% if item.description %}
+								<p class="g-features-particle-desc">
+									{{- item.description|raw -}}
+								</p>
+							{% endif %}
+
+							{% if item.subfeature1 or item.subfeature2 or item.subfeature3 or item.subfeature4 or item.subfeature5 %}
+								{{ subfeatures }}
+							{% endif %}
+
+							{% if item.buttontext %}
+								{{ button }}
+							{% endif %}
+
+							{% if particle.style|default("style1") == "style7" %}
+							</div>
+							{% endif %}
+
+						{% if particle.style|default("style1") != "style8" %}
+						</div>
+						{% endif %}
+					</div>
+				{% endset %}
+
+				{% set style2 %}
+					<div class="g-block g-features2-particle-item{% if item.class %} {{ item.class|e }}{% endif %}" {% if item.extra %}{{ attr_extra_item|raw }}{% endif %}>
+						<div class="g-content">
+							{% if item.title %}
+								<h4 class="g-features2-particle-title">
+									{%- if item.link -%}
+										<a target="{{ item.target|default('_parent')|e }}" href="{{ item.link|e }}">
+									{%- endif -%}
+									{%- if item.icon and item.image == false -%}
+										<span class="g-features2-particle-icon {{ item.icon|e }}"></span>
+									{%- endif -%}
+									{%- if item.image -%}
+										<div class="g-features2-particle-image">
+											<img alt="{{ item.title|e }}" src="{{ url(item.image) }}" {{ particle.image|imagesize|raw }}>
+										</div>
+									{%- endif -%}
+										{{- item.title|raw -}}
+									{%- if item.link -%}
+										</a>
+									{%- endif -%}
+								</h4>
+							{% endif %}
+
+							{% if item.description %}
+								<p class="g-features2-particle-desc">
+									{{- item.description|raw -}}
+								</p>
+							{% endif %}
+
+							{% if item.subfeature1 or item.subfeature2 or item.subfeature3 or item.subfeature4 or item.subfeature5 %}
+								{{ subfeatures }}
+							{% endif %}
+
+							{% if item.buttontext %}
+								{{ button }}
+							{% endif %}
+						</div>
+					</div>
+				{% endset %}
+
+				{% set style3 %}
+					<div class="g-block g-features2-particle-item{% if item.class %} {{ item.class|e }}{% endif %}" {% if item.extra %}{{ attr_extra_item|raw }}{% endif %}>
+						<div class="g-content">
+							{% if item.icon and item.image == false %}
+								<div class="g-features2-particle-icon">
+									<span class="{{ item.icon|e }}"></span>
+								</div>
+							{% endif %}
+
+							{% if item.image %}
+								<div class="g-features2-particle-image">
+									<img alt="{{ item.title|e }}" src="{{ url(item.image) }}" {{ particle.image|imagesize|raw }}>
+								</div>
+							{% endif %}
+
+							{% if item.title or item.description or item.buttontext or item.subfeature1 or item.subfeature2 or item.subfeature3 or item.subfeature4 or item.subfeature5%}
+								<div class="g-title-desc-container">
+									{% if item.title %}
+										<h4 class="g-features2-particle-title">
+											{%- if item.link -%}
+												<a target="{{ item.target|default('_parent')|e }}" href="{{ item.link|e }}">
+											{%- endif -%}
+												{{- item.title|raw -}}
+											{%- if item.link -%}
+												</a>
+											{%- endif -%}
+										</h4>
+									{% endif %}
+
+									{% if item.description %}
+										<p class="g-features2-particle-desc">
+											{{- item.description|raw -}}
+										</p>
+									{% endif %}
+
+									{% if item.subfeature1 or item.subfeature2 or item.subfeature3 or item.subfeature4 or item.subfeature5 %}
+										{{ subfeatures }}
+									{% endif %}
+
+									{% if item.buttontext %}
+										{{ button }}
+									{% endif %}
+								</div>
+							{% endif %}
+						</div>
+					</div>
+				{% endset %}
+
+				{% if particle.style|default("style1") == "style1" or particle.style|default('style1') == 'style6' or particle.style|default('style1') == 'style7' or particle.style|default('style1') == 'style8' %}{{ style1 }}{% endif %}
+				{% if particle.style|default("style1") == "style2" or particle.style|default('style1') == 'style3' %}{{ style2 }}{% endif %}
+				{% if particle.style|default("style1") == "style4" or particle.style|default('style1') == 'style5' %}{{ style3 }}{% endif %}
+
+			{% endfor %}
+		</div>
+	{% endfor %}
+
+{% endset %}
+
+{% block particle %}
+	<div class="{{ mainclass|trim }} {{ particle.style|default("style1")|e }}{% if particle.css.class %} {{ particle.css.class|e }}{% endif %}" {% if particle.extra %}{{ attr_extra|raw }}{% endif %}>
+		{% if particle.mainheading or particle.introtext %}
+			{{ particleheading }}
+		{% endif %}
+		{{ featuresitems }}
+	</div>
+{% endblock %}

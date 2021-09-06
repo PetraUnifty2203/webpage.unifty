@@ -1,0 +1,323 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% set attr_extra = '' %}
+{% if particle.extra %}
+    {% for attributes in particle.extra %}
+        {% for key, value in attributes %}
+            {% set attr_extra = attr_extra ~ ' ' ~ key|e ~ '="' ~ value|e('html_attr') ~ '"' %}
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
+{% set sliderid = random() %}
+{% set rel_number = 0 %}
+
+{% set particleheading %}
+    <div class="g-particle-intro">
+        {% if particle.mainheading %}
+            <h3 class="g-title g-main-title">{{ particle.mainheading|raw }}</h3>
+            <div class="g-title-separator {% if particle.introtext == false %}no-intro-text{% endif %}"></div>
+        {% endif %} 
+        {% if particle.introtext %}<p class="g-introtext">{{ particle.introtext|raw }}</p>{% endif %}
+    </div>
+{% endset %}
+
+{% set slideritems %}
+    {% for item in particle.items %}
+        {% set attr_extra_item = '' %}
+        {% for extra in item.extra %}
+            {% set attr_extra_item = attr_extra_item ~ ' ' ~ extra|keys|first|e ~ '="' ~ extra|values|first|e('html_attr') ~ '"' %}
+        {% endfor %}
+
+        {% set image %}
+            <div class="g-3d-slider-image">
+                {% if particle.lightbox|default('enable') == 'enable' or particle.lightbox|default('enable') == 'disable' %}
+                    {% if particle.lightbox|default('enable') == 'enable' %}
+                        <a href="{{ url(item.image, false, 0) }}" data-uk-lightbox class="uk-overlay uk-overlay-hover">
+                        {% if particle.style|default('style1') == 'style1' %}
+                            <span class="uk-overlay-panel uk-overlay-background uk-overlay-icon uk-overlay-fade"></span>
+                        {% endif %}
+                    {% endif %}
+                        <img alt="{{ item.alt|e }}" src="{{ url(item.image) }}" {{ item.image|imagesize|raw }}>
+                    {% if particle.lightbox|default('enable') == 'enable' %}
+                        </a>
+                    {% endif %}
+                {% endif %}
+
+                {% if particle.lightbox|default('enable') == 'disablelink' %}
+                    {% if item.link %}<a target="{{ item.target|default('_parent')|e }}" href="{{ item.link|e }}">{% endif %}
+                        <img alt="{{ item.alt|e }}" src="{{ url(item.image) }}" {{ item.image|imagesize|raw }}>
+                    {% if item.link %}</a>{% endif %}
+                {% endif %}
+            </div>
+        {% endset %}
+
+        {% set title %}
+            <h4 class="g-3d-slider-title">
+                {%- if item.link -%}
+                    <a target="{{ item.target|default('_parent')|e }}" href="{{ item.link|e }}">
+                {%- endif -%}
+                    {{- item.title|raw -}}
+                {%- if item.link -%}
+                    </a>
+                {%- endif -%}
+            </h4>
+        {% endset %}
+
+        {% set date %}
+            <div class="g-item-details{% if particle.style|default("style1") == "style1" and particle.dateposition|default('top') == "top" %} date-top{%- endif -%}">
+                <span class="date"><i class="fa fa-clock-o"></i>{{ item.date|raw }}</span>
+            </div>
+        {% endset %}
+
+        {% set description %}
+            <div class="g-3d-slider-desc">
+                {{- item.description|raw -}}
+            </div>
+        {% endset %}
+
+        {% set specialtext %}
+            <div class="g-3d-slider-special">
+                {%- if item.icon -%}
+                    <i class="{{ item.icon|e }}"></i>
+                {%- endif -%}
+                {{- item.specialtext|raw -}}
+            </div>
+        {% endset %}
+
+        {% set bottomlink %}
+            <div class="g-3d-slider-link">
+                <a target="{{ item.target|default('_parent')|e }}" href="{{ item.link|e }}">
+                    {{- item.bottomlink|raw -}}
+                    <i class="fa fa-long-arrow-right"></i>
+                </a>
+            </div>
+        {% endset %}
+
+        {% set style1 %}
+            <div class="g-3d-slider-item">
+                {% if item.date and particle.dateposition|default('top') == 'top' %}
+                    {{ date }}
+                {% endif %}
+
+                {% if item.image %}
+                    {{ image }}
+                {% endif %}
+
+                {% if item.title or item.description %}
+                    <div class="g-info-container">
+                        {% if item.title %}
+                            {{ title }}
+                        {% endif %}
+
+                        {% if item.date and particle.dateposition|default('top') == 'bottom' %}
+                            {{ date }}
+                        {% endif %}
+
+                        {% if item.description %}
+                            {{ description }}
+                        {% endif %}
+
+                        {% if item.specialtext or item.bottomlink %}
+                            <div class="g-bottom-info clearfix{% if item.specialtext == false %} no-special{% endif %}{% if item.bottomlink == false %} no-link{% endif %}">
+                                {% if item.specialtext %}
+                                    {{ specialtext }}
+                                {% endif %}
+
+                                {% if item.bottomlink %}
+                                    {{ bottomlink }}
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endset %}
+
+        {% set style2 %}
+            <div class="g-3d-slider-item uk-overlay uk-overlay-hover">
+                {% if item.image %}
+                    {{ image }}
+                {% endif %}
+
+                {% if item.title or item.description %}
+                    <div class="g-info-container-style2 uk-overlay-panel uk-overlay-background uk-overlay-bottom uk-overlay-slide-bottom">
+                        {% if item.title %}
+                            {{ title }}
+                        {% endif %}
+
+                        {% if item.date %}
+                            {{ date }}
+                        {% endif %}
+
+                        {% if item.description %}
+                            {{ description }}
+                        {% endif %}
+
+                        {% if item.specialtext or item.bottomlink %}
+                            <div class="g-bottom-info clearfix{% if item.specialtext == false %} no-special{% endif %}{% if item.bottomlink == false %} no-link{% endif %}">
+                                {% if item.specialtext %}
+                                    {{ specialtext }}
+                                {% endif %}
+
+                                {% if item.bottomlink %}
+                                    {{ bottomlink }}
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endset %}
+
+        {% set style3 %}
+            <div class="g-3d-slider-item uk-overlay">
+                {% if item.image %}
+                    {{ image }}
+                {% endif %}
+
+                {% if item.title or item.description %}
+                    <div class="g-info-container-style2 uk-overlay-panel uk-overlay-background uk-overlay-bottom">
+                        {% if item.title %}
+                            {{ title }}
+                        {% endif %}
+
+                        {% if item.date %}
+                            {{ date }}
+                        {% endif %}
+
+                        {% if item.description %}
+                            {{ description }}
+                        {% endif %}
+
+                        {% if item.specialtext or item.bottomlink %}
+                            <div class="g-bottom-info clearfix{% if item.specialtext == false %} no-special{% endif %}{% if item.bottomlink == false %} no-link{% endif %}">
+                                {% if item.specialtext %}
+                                    {{ specialtext }}
+                                {% endif %}
+
+                                {% if item.bottomlink %}
+                                    {{ bottomlink }}
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endset %}
+
+        <section rel='{{ rel_number }}'{% if item.class %} class="{{ item.class|e }}"{% endif %} {% if item.extra %}{{ attr_extra_item|raw }}{% endif %}>
+            {% if particle.style|default("style1") == "style1" %}{{ style1 }}{% endif %}
+            {% if particle.style|default("style1") == "style2" %}{{ style2 }}{% endif %}
+            {% if particle.style|default("style1") == "style3" %}{{ style3 }}{% endif %}
+        </section>
+
+        {% set rel_number = rel_number + 1 %}
+
+    {% endfor %}
+{% endset %}
+
+{% block particle %}
+    <div class="g-3d-slider g-3d-inline_{{ sliderid }} {{ particle.theme|default('carousel')|e }} {{ particle.style|default("style1")|e }}{% if particle.css.class %} {{ particle.css.class|e }}{% endif %}" {% if particle.extra %}{{ attr_extra|raw }}{% endif %}>
+        {% if particle.mainheading or particle.introtext %}
+            {{ particleheading }}
+        {% endif %}
+        <div class="g-3d-slider-container">
+            <article class="presentation-3d">
+                {{ slideritems }}
+            </article>
+            {% if (particle.navigation|default('arrows') == 'arrows') %}
+                <div class="g-particle-navigation {{ particle.navigation|default('arrows')|e }}">
+                    <a href="" class="uk-slidenav uk-slidenav-previous" data-uk-slideset-item="previous" aria-label="{{'Previous'|trans_key('IT_ACCESS_PREVIOUS')}}"></a>
+                    <a href="" class="uk-slidenav uk-slidenav-next" data-uk-slideset-item="next" aria-label="{{'Next'|trans_key('IT_ACCESS_NEXT')}}"></a>
+                </div>
+            {% endif %}
+        </div>
+        {% if (particle.navigation|default('arrows') == 'arrows-bottom') %}
+            <div class="g-particle-navigation {{ particle.navigation|default('arrows')|e }}">
+                <a href="" class="uk-slidenav uk-slidenav-previous" data-uk-slideset-item="previous" aria-label="{{'Previous'|trans_key('IT_ACCESS_PREVIOUS')}}"></a>
+                <a href="" class="uk-slidenav uk-slidenav-next" data-uk-slideset-item="next" aria-label="{{'Next'|trans_key('IT_ACCESS_NEXT')}}"></a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block javascript_footer %}
+    {% if particle.enabled %}
+        {% do gantry.load('jquery') %}
+        {{ parent() }}
+        <script src="{{ url('gantry-theme://js/bespoke/bespoke.min.js') }}" type="text/javascript"></script>
+        <script src="{{ url('gantry-theme://js/bespoke/bespoke-keys.min.js') }}" type="text/javascript"></script>
+        <script src="{{ url('gantry-theme://js/bespoke/bespoke-touch.min.js') }}" type="text/javascript"></script>
+        <script src="{{ url('gantry-theme://js/bespoke/bespoke-classes.min.js') }}" type="text/javascript"></script>
+        <script src="{{ url('gantry-theme://js/bespoke/bespoke-backdrop.min.js') }}" type="text/javascript"></script>
+        {% if (particle.loopslider|default('disable') == 'enable') %}
+            <script src="{{ url('gantry-theme://js/bespoke/bespoke-loop.min.js') }}" type="text/javascript"></script>
+        {% endif %}
+        <script type="text/javascript">
+
+            var deck_{{ sliderid }} = bespoke.from('.g-3d-inline_{{ sliderid }} .presentation-3d', [
+                bespoke.plugins.keys(),
+                bespoke.plugins.touch(),
+                bespoke.plugins.classes(),
+                {% if (particle.loopslider|default('disable') == 'enable') %}
+                    bespoke.plugins.loop(),
+                {% endif %}
+                bespoke.plugins.backdrop()
+            ]);
+            
+            // Start Slide
+            deck_{{ sliderid }}.slide({{ particle.start|default(3)|e }} - 1);
+
+            (function($) {
+                $(window).load(function() {
+
+                    // Click Navigation
+                    var goToSlide = $('.g-3d-inline_{{ sliderid }} section');
+                    var prevButton = $('.g-3d-inline_{{ sliderid }} .uk-slidenav-previous');
+                    var nextButton = $('.g-3d-inline_{{ sliderid }} .uk-slidenav-next');
+
+                    $(goToSlide).on("click", function(e){
+                        var slide = $(this).attr('rel');
+                        deck_{{ sliderid }}.slide(slide);
+                    });
+
+                    $(prevButton).on("click", function(e){
+                        e.preventDefault();
+                        deck_{{ sliderid }}.prev();
+                    });
+
+                    $(nextButton).on("click", function(e){
+                        e.preventDefault();
+                        deck_{{ sliderid }}.next();
+                    });
+
+                    // Get Slider Height
+                    function getSliderHeight() {
+                        var sliderContainer = $('.g-3d-inline_{{ sliderid }} .g-3d-slider-container');
+                        var sliderHeight = $('.g-3d-inline_{{ sliderid }} .bespoke-active').innerHeight();
+
+                        $(sliderContainer).css({
+                            'height' : sliderHeight
+                        });
+                    }
+
+                    getSliderHeight();
+
+                    $(window).resize(function() {
+                        getSliderHeight();
+                    });
+
+                    // Autoplay
+                    {% if (particle.autoplay|default('disable') == 'enable') %}
+                        function autoplay(){
+                            deck_{{ sliderid }}.next();
+                        };
+
+                        setInterval(autoplay,{{ particle.autoplayInterval|default(7000)|e}});
+                    {% endif %}
+                });
+            })(jQuery);
+        </script>
+    {% endif %}
+{% endblock %}
